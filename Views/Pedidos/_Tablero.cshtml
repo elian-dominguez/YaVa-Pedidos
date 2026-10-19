@@ -1,0 +1,68 @@
+@using YaVa.Controllers
+@model List<Pedido>
+@{
+    var columnas = new (EstadoPedido Estado, string Titulo, string Color)[]
+    {
+        (EstadoPedido.Pendiente, "Pendientes", "secondary"),
+        (EstadoPedido.EnPreparacion, "En preparación", "warning"),
+        (EstadoPedido.Listo, "Listos para entregar", "success")
+    };
+
+    string TextoBoton(EstadoPedido siguiente) => siguiente switch
+    {
+        EstadoPedido.EnPreparacion => "Empezar a preparar",
+        EstadoPedido.Listo => "Marcar listo",
+        EstadoPedido.Entregado => "Marcar entregado",
+        _ => "Avanzar"
+    };
+}
+
+<div class="row g-3">
+    @foreach (var columna in columnas)
+    {
+        var pedidos = Model.Where(p => p.Estado == columna.Estado).ToList();
+        <div class="col-md-4">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h2 class="h6 text-uppercase text-muted mb-0">@columna.Titulo</h2>
+                <span class="badge bg-@columna.Color">@pedidos.Count</span>
+            </div>
+
+            @if (pedidos.Count == 0)
+            {
+                <p class="text-muted small">Sin pedidos.</p>
+            }
+
+            @foreach (var pedido in pedidos)
+            {
+                var siguiente = PedidosController.SiguienteEstado(pedido.Estado);
+
+                <div class="card mb-3 border-@columna.Color" data-pedido="@pedido.Id">
+                    <div class="card-header d-flex justify-content-between align-items-center py-2">
+                        <strong>Mesa @pedido.Mesa</strong>
+                        <small class="text-muted">#@pedido.Id · @pedido.CreadoEn.ToString("HH:mm")</small>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        @foreach (var item in pedido.Items)
+                        {
+                            <li class="list-group-item py-1 d-flex justify-content-between">
+                                <span>@item.Cantidad x @(item.Producto?.Nombre ?? "?")</span>
+                                <span class="text-muted">@((item.Cantidad * item.PrecioUnitario).ToString("C0"))</span>
+                            </li>
+                        }
+                    </ul>
+                    <div class="card-footer d-flex justify-content-between align-items-center py-2">
+                        <strong>@pedido.Total.ToString("C0")</strong>
+                        @if (siguiente is not null)
+                        {
+                            <form asp-action="CambiarEstado" method="post" class="m-0">
+                                <input type="hidden" name="id" value="@pedido.Id" />
+                                <input type="hidden" name="estado" value="@siguiente" />
+                                <button type="submit" class="btn btn-sm btn-outline-dark">@TextoBoton(siguiente.Value)</button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

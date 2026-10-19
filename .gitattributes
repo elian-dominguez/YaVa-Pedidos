@@ -1,0 +1,2 @@
+# Librerias de terceros: no las escribimos nosotros, no cuentan como lenguaje del proyecto
+wwwroot/lib/** linguist-vendored

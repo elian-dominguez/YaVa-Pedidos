@@ -1,0 +1,52 @@
+@model NuevoPedidoViewModel
+@{
+    ViewData["Title"] = "Nuevo pedido";
+}
+
+<h1 class="h3 mb-3">Nuevo pedido</h1>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="row mb-3">
+        <div class="col-sm-4">
+            <label asp-for="Mesa" class="form-label"></label>
+            <input asp-for="Mesa" class="form-control" placeholder="Ej: 4" />
+            <span asp-validation-for="Mesa" class="text-danger small"></span>
+        </div>
+    </div>
+
+    <table class="table table-sm align-middle">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th class="text-end">Precio</th>
+                <th style="width: 120px;">Cantidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model.Lineas.Count; i++)
+            {
+                <tr>
+                    <td>
+                        @Model.Lineas[i].Nombre
+                        <input type="hidden" asp-for="Lineas[i].ProductoId" />
+                        <input type="hidden" asp-for="Lineas[i].Nombre" />
+                        <input type="hidden" asp-for="Lineas[i].Precio" />
+                    </td>
+                    <td class="text-end">@Model.Lineas[i].Precio.ToString("C0")</td>
+                    <td>
+                        <input asp-for="Lineas[i].Cantidad" type="number" min="0" max="50" class="form-control form-control-sm" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Cargar pedido</button>
+    <a class="btn btn-link" asp-action="Index">Cancelar</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

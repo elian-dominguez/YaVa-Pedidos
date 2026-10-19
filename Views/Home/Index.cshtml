@@ -1,0 +1,40 @@
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<div class="p-4 mb-4 bg-light rounded border">
+    <h1 class="h3">YaVa</h1>
+    <p class="mb-0">
+        Tablero de pedidos para un bar, en tiempo real. Un pedido pasa por caja, cocina y mostrador,
+        y cada cambio se avisa con SignalR.
+    </p>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h6">Caja</h2>
+                <p class="card-text small mb-0">Carga el pedido con la mesa y los productos.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h6">Cocina</h2>
+                <p class="card-text small mb-0">Ve los pedidos nuevos, los empieza a preparar y los marca listos.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h6">Mostrador</h2>
+                <p class="card-text small mb-0">Ve lo que está listo y registra la entrega.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a class="btn btn-primary" asp-controller="Pedidos" asp-action="Index">Ir al tablero</a>

@@ -1,0 +1,25 @@
+@model List<Pedido>
+@{
+    ViewData["Title"] = "Tablero";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h1 class="h3 mb-0">Tablero de pedidos</h1>
+        <small class="text-muted">
+            <span id="estado-conexion" class="badge bg-secondary">conectando...</span>
+        </small>
+    </div>
+    <a class="btn btn-primary" asp-action="Create">Nuevo pedido</a>
+</div>
+
+<div id="avisos"></div>
+
+<div id="tablero">
+    <partial name="_Tablero" model="Model" />
+</div>
+
+@section Scripts {
+    <script src="~/lib/microsoft-signalr/signalr.min.js"></script>
+    <script src="~/js/tablero.js" asp-append-version="true"></script>
+}
