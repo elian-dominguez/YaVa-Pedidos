@@ -9,7 +9,19 @@ Web de la Universidad Nacional de La Matanza. El tema asignado fue Real Time Com
 SignalR, y esta aplicación es la parte práctica: demuestra los conceptos investigados funcionando con
 varios usuarios conectados al mismo tiempo.
 
-## El problema
+## Integrantes
+
+Grupo 3:
+
+- Aleman, Axel Fabricio
+- Cordoba, Agustina Abigail
+- Dominguez, Elian
+- Federico, Sabrina
+- Gil, Gonzalo
+- Jaimes, Lautaro
+- Sandoval, Antonio Mario
+
+## Descripción
 
 En un bar, un pedido pasa por tres manos: alguien lo toma en la caja, alguien lo prepara en la cocina
 y alguien lo entrega en el mostrador. Sin un tablero, esa coordinación se hace a los gritos o con
@@ -29,11 +41,8 @@ El recorrido de un pedido es `Pendiente` → `En preparación` → `Listo` → `
 - **Cocina** lo empieza a preparar y lo marca listo.
 - **Mostrador** registra la entrega.
 
-Hoy cualquiera puede hacer los tres pasos: todavía no hay login. El tablero igual se actualiza solo
-cuando alguien cambia un pedido, porque SignalR avisa a las pantallas conectadas.
-
-Cuando esté el login, cada puesto debería ver y poder hacer solo lo suyo, y el aviso debería llegar
-solo al grupo que lo necesita, no a todos.
+Cuando alguien carga o avanza un pedido, las otras pantallas se actualizan solas: SignalR avisa a
+quien está conectado, sin recargar.
 
 ## El tiempo real
 
@@ -81,19 +90,6 @@ dotnet run --launch-profile http
 Para ver el tiempo real, abrí el tablero en dos ventanas, cargá un pedido en una y mirá cómo se mueve
 la otra sin recargar.
 
-## Decisiones técnicas
-
-**La base de datos guarda el estado, SignalR solo transmite el aviso.** Un pedido primero se guarda y
-recién después se notifica. Si alguien recarga la página o se le corta internet, el pedido sigue
-estando, porque el aviso no es el dato.
-
-**El precio se toma de la base al guardar, no del formulario.** El HTML se puede editar, así que el
-precio que llega en el POST se ignora y se busca el del producto en la base.
-
-**El HTML de las tarjetas vive en un solo lugar.** Cuando llega un aviso, el navegador vuelve a pedir
-el tablero al servidor y reemplaza el bloque, en vez de dibujar la tarjeta con JavaScript. Así la
-vista parcial de Razor (`Views/Pedidos/_Tablero.cshtml`) es la única fuente del marcado.
-
 ## Estructura
 
 ```
@@ -106,21 +102,3 @@ Data/SeedDatos.cs                Migraciones automáticas y carta inicial
 Views/Pedidos/_Tablero.cshtml    Las tres columnas del tablero
 wwwroot/js/tablero.js            El cliente de SignalR en el navegador
 ```
-
-## Lo que falta
-
-La cátedra pide login básico. Eso todavía no está, ni un panel para administrar la carta y los
-usuarios. Cuando esté el login, el Hub tiene que agrupar las conexiones por rol y el aviso no tiene
-que mandarse a todos.
-
-## Integrantes
-
-Grupo 3:
-
-- Aleman, Axel Fabricio
-- Cordoba, Agustina Abigail
-- Dominguez, Elian
-- Federico, Sabrina
-- Gil, Gonzalo
-- Jaimes, Lautaro
-- Sandoval, Antonio Mario
