@@ -1,0 +1,65 @@
+﻿@model Producto
+@{
+    ViewData["Title"] = "Nuevo producto";
+}
+<div class="container mt-4">
+
+    <div class="mb-4">
+        <h1 class="h3">Nuevo producto</h1>
+        <p class="text-muted">Agregá un nuevo producto a la carta del bar.</p>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+
+            <form asp-action="Create" method="post">
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Nombre" class="form-label">
+                        Nombre del producto
+                    </label>
+
+                    <input asp-for="Nombre"
+                           class="form-control"
+                           placeholder="Ej: Hamburguesa completa" />
+
+                    <span asp-validation-for="Nombre"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Precio" class="form-label">
+                        Precio
+                    </label>
+
+                    <input asp-for="Precio"
+                           class="form-control"
+                           placeholder="Ej: 9800" />
+
+                    <span asp-validation-for="Precio"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="d-flex gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary">
+                        Guardar producto
+                    </button>
+
+                    <a asp-action="Index" class="btn btn-outline-secondary">
+                        Cancelar
+                    </a>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
