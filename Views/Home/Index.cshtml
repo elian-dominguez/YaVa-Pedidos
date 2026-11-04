@@ -1,40 +1,146 @@
+
 @{
     ViewData["Title"] = "Inicio";
 }
+@section Styles {
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+}
 
-<div class="p-4 mb-4 bg-light rounded border">
-    <h1 class="h3">YaVa</h1>
-    <p class="mb-0">
-        Tablero de pedidos para un bar, en tiempo real. Un pedido pasa por caja, cocina y mostrador,
-        y cada cambio se avisa con SignalR.
-    </p>
+<section class="home-hero mb-4">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+            <span class="home-eyebrow">
+                ● PANEL DE GESTIÓN GASTRONÓMICA
+            </span>
+
+            <h1 class="home-title mt-3">
+                Bienvenido a <span>YaVa.</span>
+            </h1>
+
+            <p class="home-description">
+                Todo lo que necesitás para gestionar tu restaurante
+                en un solo lugar. Organizá pedidos, coordiná tu equipo
+                y mantené el servicio en movimiento.
+            </p>
+
+            <div class="d-flex flex-wrap gap-3 mt-4">
+                <a asp-controller="Pedidos"
+                   asp-action="Index"
+                   class="btn btn-primary px-4">
+                    Ver tablero de pedidos →
+                </a>
+
+                <a asp-controller="Pedidos"
+                   asp-action="Create"
+                   class="btn home-btn-outline px-4">
+                    + Crear pedido
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-4 d-none d-lg-flex justify-content-center">
+            <div class="home-hero-symbol" aria-hidden="true">
+                <span>Y</span>
+                <small>YaVa</small>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="d-flex align-items-center justify-content-between mb-3">
+    <div>
+        <span class="home-section-label">EL EQUIPO</span>
+        <h2 class="h4 mb-1">Cada área, conectada</h2>
+        <p class="text-muted mb-0">
+            Un flujo de trabajo simple, desde el pedido hasta la entrega.
+        </p>
+    </div>
 </div>
 
-<div class="row g-3 mb-4">
+<div class="row g-4 mb-5">
+
     <div class="col-md-4">
-        <div class="card h-100">
-            <div class="card-body">
-                <h2 class="h6">Caja</h2>
-                <p class="card-text small mb-0">Carga el pedido con la mesa y los productos.</p>
+        <div class="card home-role-card h-100">
+            <div class="card-body p-4">
+                <div class="home-role-icon home-role-caja">
+                    01
+                </div>
+
+                <h3 class="h5 mt-4">Caja</h3>
+                <p class="home-role-description">
+                    Registrá nuevos pedidos, seleccioná productos
+                    y asigná la mesa correspondiente.
+                </p>
+
+                <a asp-controller="Pedidos"
+                   asp-action="Create"
+                   class="home-role-link">
+                    Nuevo pedido →
+                </a>
             </div>
         </div>
     </div>
+
     <div class="col-md-4">
-        <div class="card h-100">
-            <div class="card-body">
-                <h2 class="h6">Cocina</h2>
-                <p class="card-text small mb-0">Ve los pedidos nuevos, los empieza a preparar y los marca listos.</p>
+        <div class="card home-role-card h-100">
+            <div class="card-body p-4">
+                <div class="home-role-icon home-role-cocina">
+                    02
+                </div>
+
+                <h3 class="h5 mt-4">Cocina</h3>
+                <p class="home-role-description">
+                    Visualizá los pedidos pendientes, comenzá
+                    su preparación y marcalos como listos.
+                </p>
+
+                <a asp-controller="Pedidos"
+                   asp-action="Index"
+                   class="home-role-link">
+                    Ver pedidos →
+                </a>
             </div>
         </div>
     </div>
+
     <div class="col-md-4">
-        <div class="card h-100">
-            <div class="card-body">
-                <h2 class="h6">Mostrador</h2>
-                <p class="card-text small mb-0">Ve lo que está listo y registra la entrega.</p>
+        <div class="card home-role-card h-100">
+            <div class="card-body p-4">
+                <div class="home-role-icon home-role-mostrador">
+                    03
+                </div>
+
+                <h3 class="h5 mt-4">Mostrador</h3>
+                <p class="home-role-description">
+                    Consultá los pedidos listos para entregar
+                    y registrá su entrega al cliente.
+                </p>
+
+                <a asp-controller="Pedidos"
+                   asp-action="Index"
+                   class="home-role-link">
+                    Ver tablero →
+                </a>
             </div>
         </div>
     </div>
+
 </div>
 
-<a class="btn btn-primary" asp-controller="Pedidos" asp-action="Index">Ir al tablero</a>
+<section class="home-bottom-banner">
+    <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+        <div>
+            <span class="home-section-label">ADMINISTRACIÓN</span>
+            <h2 class="h5 mb-1">Mantené tu carta actualizada</h2>
+            <p class="mb-0 text-muted">
+                Gestioná los productos, precios y disponibilidad del restaurante.
+            </p>
+        </div>
+
+        <a asp-controller="Productos"
+           asp-action="Index"
+           class="btn btn-primary">
+            Administrar productos →
+        </a>
+    </div>
+</section>

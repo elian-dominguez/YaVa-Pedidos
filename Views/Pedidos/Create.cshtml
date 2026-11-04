@@ -1,52 +1,179 @@
+
 @model NuevoPedidoViewModel
+
 @{
     ViewData["Title"] = "Nuevo pedido";
 }
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/pedido-create.css"
+          asp-append-version="true" />
+}
+<div class="pedido-create">
 
-<h1 class="h3 mb-3">Nuevo pedido</h1>
+    <a asp-action="Index" class="pedido-volver">
+        ← Volver al tablero
+    </a>
 
-<form asp-action="Create" method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-    <div class="row mb-3">
-        <div class="col-sm-4">
-            <label asp-for="Mesa" class="form-label"></label>
-            <input asp-for="Mesa" class="form-control" placeholder="Ej: 4" />
-            <span asp-validation-for="Mesa" class="text-danger small"></span>
-        </div>
+    <div class="pedido-encabezado">
+        <span class="pedido-etiqueta">GESTIÓN / PEDIDOS</span>
+        <h1>Nuevo pedido</h1>
+        <p>Registrá un pedido seleccionando la mesa y los productos.</p>
     </div>
 
-    <table class="table table-sm align-middle">
-        <thead>
-            <tr>
-                <th>Producto</th>
-                <th class="text-end">Precio</th>
-                <th style="width: 120px;">Cantidad</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (var i = 0; i < Model.Lineas.Count; i++)
-            {
-                <tr>
-                    <td>
-                        @Model.Lineas[i].Nombre
-                        <input type="hidden" asp-for="Lineas[i].ProductoId" />
-                        <input type="hidden" asp-for="Lineas[i].Nombre" />
-                        <input type="hidden" asp-for="Lineas[i].Precio" />
-                    </td>
-                    <td class="text-end">@Model.Lineas[i].Precio.ToString("C0")</td>
-                    <td>
-                        <input asp-for="Lineas[i].Cantidad" type="number" min="0" max="50" class="form-control form-control-sm" />
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <form asp-action="Create" method="post">
 
-    <button type="submit" class="btn btn-primary">Cargar pedido</button>
-    <a class="btn btn-link" asp-action="Index">Cancelar</a>
-</form>
+        <div asp-validation-summary="ModelOnly"
+             class="text-danger mb-3"></div>
+
+        <div class="row g-4">
+
+            <div class="col-lg-8">
+
+                <div class="pedido-panel">
+
+                    <div class="pedido-panel-header">
+                        <div class="pedido-icono">01</div>
+                        <div>
+                            <h2>Datos del pedido</h2>
+                            <p>Indicá dónde se realizará el servicio.</p>
+                        </div>
+                    </div>
+
+                    <div class="pedido-panel-body">
+                        <label asp-for="Mesa" class="form-label">
+                            Número o nombre de mesa
+                        </label>
+
+                        <input asp-for="Mesa"
+                               class="form-control"
+                               placeholder="Ej: Mesa 4" />
+
+                        <span asp-validation-for="Mesa"
+                              class="text-danger small"></span>
+                    </div>
+
+                </div>
+
+                <div class="pedido-panel mt-4">
+
+                    <div class="pedido-panel-header">
+                        <div class="pedido-icono">02</div>
+                        <div>
+                            <h2>Seleccionar productos</h2>
+                            <p>Indicá la cantidad de cada producto.</p>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+
+                        <table class="table pedido-tabla mb-0">
+                            <thead>
+                                <tr>
+                                    <th>PRODUCTO</th>
+                                    <th>PRECIO</th>
+                                    <th class="text-center">CANTIDAD</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                
+                                @for (var i = 0; i < Model.Lineas.Count; i++)
+                                {
+                                    <tr class="pedido-fila"
+                                        data-nombre="@Model.Lineas[i].Nombre"
+                                        data-precio="@Model.Lineas[i].Precio.ToString(System.Globalization.CultureInfo.InvariantCulture)">
+
+                                        <td class="pedido-producto-nombre">
+                                            @Model.Lineas[i].Nombre
+
+                                            <input type="hidden" asp-for="Lineas[i].ProductoId" />
+                                            <input type="hidden" asp-for="Lineas[i].Nombre" />
+                                            <input type="hidden" asp-for="Lineas[i].Precio" />
+                                        </td>
+
+                                        <td class="pedido-precio">
+                                            @Model.Lineas[i].Precio.ToString("C0")
+                                        </td>
+
+                                        <td class="pedido-cantidad">
+                                            <input asp-for="Lineas[i].Cantidad"
+                                                   type="number"
+                                                   min="0"
+                                                   max="50"
+                                                   class="form-control text-center pedido-input-cantidad" />
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="pedido-resumen">
+
+                    <span class="pedido-etiqueta">CONFIRMACIÓN</span>
+
+                    <h2>Resumen del pedido</h2>
+
+                    <p id="pedido-resumen-ayuda">
+                        Seleccioná los productos y sus cantidades
+                        para registrar el pedido.
+                    </p>
+
+                    
+                    <div id="pedido-productos-seleccionados"
+                         class="pedido-productos-seleccionados">
+                    </div>
+
+                    <div class="pedido-total">
+                        <span>Total del pedido</span>
+                        <strong id="pedido-total-importe">$0</strong>
+                    </div>
+
+
+                    <div class="pedido-resumen-info">
+                        <span>Estado inicial</span>
+                        <span class="pedido-estado">● Pendiente</span>
+                    </div>
+
+                    <div class="pedido-resumen-info">
+                        <span>Destino</span>
+                        <strong>Cocina</strong>
+                    </div>
+
+                    <div class="pedido-resumen-acciones">
+
+                        <button type="submit"
+                                class="btn btn-primary w-100">
+                            Confirmar pedido →
+                        </button>
+
+                        <a asp-action="Index"
+                           class="btn btn-outline-secondary w-100">
+                            Cancelar
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/pedido-create.js" asp-append-version="true"></script>
 }

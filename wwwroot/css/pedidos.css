@@ -1,0 +1,366 @@
+﻿
+/* ========================================
+   PEDIDOS - BISTRÓ MODERNO
+   ======================================== */
+
+.orders-page {
+    padding-bottom: 35px;
+}
+
+/* Encabezado */
+
+.orders-eyebrow {
+    display: inline-block;
+    color: #b7673d;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+    margin-bottom: 10px;
+}
+
+.orders-title {
+    color: #29251f;
+    font-size: clamp(28px, 3vw, 38px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+}
+
+.orders-subtitle {
+    color: #82796e;
+    font-size: 15px;
+}
+
+/* Conexión en tiempo real */
+
+.orders-connection {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.orders-connection-label {
+    color: #82796e;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+#estado-conexion {
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 7px;
+    padding: 7px 11px;
+}
+
+/* Avisos */
+
+#avisos .alert {
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    border: 1px solid #e8ded0;
+    box-shadow: 0 4px 15px rgba(41, 37, 31, 0.04);
+}
+
+/* Responsive */
+
+@media (max-width: 767px) {
+    .orders-header {
+        align-items: flex-start;
+    }
+
+        .orders-header .btn {
+            width: 100%;
+        }
+}
+
+/* ========================================
+   TABLERO KANBAN DE PEDIDOS
+   ======================================== */
+
+.orders-board {
+    align-items: stretch;
+}
+
+    .orders-board > div {
+        display: flex;
+    }
+
+/* Columnas */
+
+.orders-column {
+    width: 100%;
+    min-height: 440px;
+    border: 1px solid #e8ded0;
+    border-radius: 16px;
+    background: #fffaf5;
+    overflow: hidden;
+}
+
+.orders-column-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 22px 20px;
+    border-bottom: 1px solid #e8ded0;
+    background: #fff;
+}
+
+.orders-column-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.orders-column-indicator {
+    width: 11px;
+    height: 11px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    margin-top: 6px;
+}
+
+.orders-column-heading h2 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 800;
+    color: #29251f;
+}
+
+.orders-column-heading p {
+    margin: 6px 0 0;
+    color: #8a7b6b;
+    font-size: 12px;
+}
+
+.orders-column-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+/* Colores por estado */
+
+.orders-column-pending .orders-column-indicator {
+    background: #9b8d80;
+}
+
+.orders-column-pending .orders-column-count {
+    background: #eee8e1;
+    color: #75685c;
+}
+
+.orders-column-preparing .orders-column-indicator {
+    background: #d9a044;
+}
+
+.orders-column-preparing .orders-column-count {
+    background: #fbefd7;
+    color: #a97825;
+}
+
+.orders-column-ready .orders-column-indicator {
+    background: #75816b;
+}
+
+.orders-column-ready .orders-column-count {
+    background: #e6eadf;
+    color: #627256;
+}
+
+/* Contenido */
+
+.orders-column-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* Estado vacío */
+
+.orders-empty {
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 30px 18px;
+}
+
+.orders-empty-icon {
+    width: 62px;
+    height: 62px;
+    border-radius: 18px;
+    background: #f2e9de;
+    color: #a08d79;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 18px;
+}
+
+.orders-empty h3 {
+    color: #40382f;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+.orders-empty p {
+    color: #9b8d80;
+    font-size: 13px;
+    line-height: 1.6;
+    max-width: 220px;
+    margin: 0;
+}
+
+/* Tarjetas de pedidos */
+
+.orders-ticket {
+    background: #fff;
+    border: 1px solid #e8ded0;
+    border-radius: 13px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(41, 37, 31, 0.035);
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+    .orders-ticket:hover {
+        box-shadow: 0 8px 22px rgba(41, 37, 31, 0.08);
+        transform: translateY(-2px);
+    }
+
+.orders-ticket-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 18px;
+    border-bottom: 1px solid #f0e9e0;
+}
+
+.orders-ticket-label {
+    color: #b7673d;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.orders-ticket-header h3 {
+    font-size: 19px;
+    font-weight: 800;
+    margin: 6px 0 0;
+}
+
+.orders-ticket-time {
+    background: #f7f0e7;
+    color: #806c5a;
+    padding: 7px 9px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* Productos del pedido */
+
+.orders-ticket-items {
+    padding: 16px 18px;
+}
+
+.orders-ticket-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 7px 0;
+    font-size: 13px;
+    color: #51483e;
+}
+
+    .orders-ticket-item strong {
+        color: #29251f;
+    }
+
+.orders-item-price {
+    color: #82796e;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Total y botón */
+
+.orders-ticket-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 17px 18px;
+    background: #fcf8f3;
+    border-top: 1px solid #f0e9e0;
+}
+
+.orders-ticket-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .orders-ticket-total small {
+        color: #8a7b6b;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 1px;
+    }
+
+    .orders-ticket-total strong {
+        color: #29251f;
+        font-size: 19px;
+        font-weight: 800;
+    }
+
+.orders-ticket-footer form {
+    width: 100%;
+}
+
+.orders-advance-btn {
+    width: 100%;
+    background: #c46b3b;
+    color: #fff;
+    font-size: 12px;
+    padding: 11px 12px;
+}
+
+    .orders-advance-btn:hover {
+        background: #a9542d;
+        color: #fff;
+    }
+
+/* Responsive */
+
+@media (max-width: 991px) {
+    .orders-column {
+        min-height: 300px;
+    }
+}
+
+@media (max-width: 576px) {
+    .orders-column-header {
+        padding: 18px;
+    }
+
+    .orders-column-body {
+        padding: 12px;
+    }
+}

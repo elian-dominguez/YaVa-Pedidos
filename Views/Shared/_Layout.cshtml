@@ -1,55 +1,101 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - YaVa</title>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/YaVa.styles.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">YaVa</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+<body class="yava-app">
+
+    <header class="yava-header">
+        <nav class="navbar navbar-expand-lg navbar-dark yava-navbar">
+            <div class="container">
+
+                <a class="navbar-brand yava-brand"
+                   asp-controller="Home"
+                   asp-action="Index">
+                    <span class="yava-brand-icon">Y</span>
+                    <span class="yava-brand-text">
+                        <strong>YaVa</strong>
+                        <small>GESTIÓN GASTRONÓMICA</small>
+                    </span>
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#yavaNavbar"
+                        aria-controls="yavaNavbar"
+                        aria-expanded="false"
+                        aria-label="Abrir menú">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+
+                <div class="collapse navbar-collapse" id="yavaNavbar">
+                    <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
+                            <a class="nav-link yava-nav-link"
+                               asp-controller="Home"
+                               asp-action="Index">
+                                Inicio
+                            </a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Pedidos" asp-action="Index">Tablero</a>
+                            <a class="nav-link yava-nav-link"
+                               asp-controller="Pedidos"
+                               asp-action="Index">
+                                Tablero
+                            </a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Pedidos" asp-action="Create">Nuevo pedido</a>
+                            <a class="nav-link yava-nav-link"
+                               asp-controller="Productos"
+                               asp-action="Index">
+                                Productos
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Productos" asp-action="Index">Productos</a>
+
+                        <li class="nav-item ms-lg-3">
+                            <a class="btn yava-nav-button"
+                               asp-controller="Pedidos"
+                               asp-action="Create">
+                                + Nuevo pedido
+                            </a>
                         </li>
+
                     </ul>
                 </div>
+
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+
+    <div class="container yava-content">
+        <main role="main">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            Grupo 3 - Programación Web III - UNLaM
+    <footer class="yava-footer">
+        <div class="container d-flex flex-wrap justify-content-between gap-2">
+            <span>© YaVa · Gestión gastronómica</span>
+            <span>Grupo 3 · Programación Web III · UNLaM</span>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

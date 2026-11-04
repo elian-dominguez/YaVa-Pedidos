@@ -1,64 +1,143 @@
-﻿@model Producto
+﻿
+@model Producto
+
 @{
     ViewData["Title"] = "Nuevo producto";
 }
-<div class="container mt-4">
 
-    <div class="mb-4">
-        <h1 class="h3">Nuevo producto</h1>
-        <p class="text-muted">Agregá un nuevo producto a la carta del bar.</p>
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/productos.css"
+          asp-append-version="true" />
+}
+
+<section class="product-form-page">
+
+    <a asp-controller="Productos"
+       asp-action="Index"
+       class="product-back-link">
+        ← Volver a productos
+    </a>
+
+    <div class="product-form-header">
+        <span class="products-eyebrow">ADMINISTRACIÓN / CARTA</span>
+
+        <h1 class="products-title">Nuevo producto</h1>
+
+        <p class="products-subtitle">
+            Agregá un nuevo producto a la carta de tu restaurante.
+        </p>
     </div>
 
-    <div class="card shadow-sm">
-        <div class="card-body p-4">
+    <div class="row g-4">
 
-            <form asp-action="Create" method="post">
+        <div class="col-lg-8">
 
-                <div asp-validation-summary="ModelOnly"
-                     class="text-danger mb-3"></div>
+            <div class="card product-form-card">
 
-                <div class="mb-3">
-                    <label asp-for="Nombre" class="form-label">
-                        Nombre del producto
-                    </label>
+                <div class="product-form-card-header">
+                    <div class="product-form-icon">+</div>
 
-                    <input asp-for="Nombre"
-                           class="form-control"
-                           placeholder="Ej: Hamburguesa completa" />
-
-                    <span asp-validation-for="Nombre"
-                          class="text-danger"></span>
+                    <div>
+                        <h2 class="h5 mb-1">Información del producto</h2>
+                        <p class="text-muted small mb-0">
+                            Completá los datos para agregarlo a la carta.
+                        </p>
+                    </div>
                 </div>
 
-                <div class="mb-3">
-                    <label asp-for="Precio" class="form-label">
-                        Precio
-                    </label>
+                <div class="card-body product-form-body">
 
-                    <input asp-for="Precio"
-                           class="form-control"
-                           placeholder="Ej: 9800" />
+                    <form asp-controller="Productos"
+                          asp-action="Create"
+                          method="post">
 
-                    <span asp-validation-for="Precio"
-                          class="text-danger"></span>
+                        <div asp-validation-summary="ModelOnly"
+                             class="text-danger mb-3"></div>
+
+                        <div class="mb-4">
+                            <label asp-for="Nombre" class="form-label">
+                                Nombre del producto
+                            </label>
+
+                            <input asp-for="Nombre"
+                                   class="form-control"
+                                   placeholder="Ej: Hamburguesa completa" />
+
+                            <span asp-validation-for="Nombre"
+                                  class="text-danger small"></span>
+
+                            <div class="form-text">
+                                Elegí un nombre claro para identificarlo en los pedidos.
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Precio" class="form-label">
+                                Precio de venta
+                            </label>
+
+                            <div class="input-group product-price-group">
+                                <span class="input-group-text">$</span>
+
+                                <input asp-for="Precio"
+                                       class="form-control"
+                                       placeholder="Ej: 9800" />
+                            </div>
+
+                            <span asp-validation-for="Precio"
+                                  class="text-danger small"></span>
+
+                            <div class="form-text">
+                                Ingresá el precio en pesos argentinos.
+                            </div>
+                        </div>
+
+                        <div class="product-form-actions">
+                            <a asp-controller="Productos"
+                               asp-action="Index"
+                               class="btn product-cancel-btn">
+                                Cancelar
+                            </a>
+
+                            <button type="submit"
+                                    class="btn btn-primary px-4">
+                                Guardar producto
+                            </button>
+                        </div>
+
+                    </form>
+
                 </div>
-
-                <div class="d-flex gap-2 mt-4">
-                    <button type="submit" class="btn btn-primary">
-                        Guardar producto
-                    </button>
-
-                    <a asp-action="Index" class="btn btn-outline-secondary">
-                        Cancelar
-                    </a>
-                </div>
-
-            </form>
-
+            </div>
         </div>
-    </div>
 
-</div>
+        <div class="col-lg-4">
+            <div class="product-info-panel">
+                <span class="products-eyebrow">INFORMACIÓN</span>
+
+                <h3 class="h6 mb-3">¿Cómo funciona?</h3>
+
+                <p>
+                    Al guardar el producto, se incorporará
+                    automáticamente a la carta del restaurante.
+                </p>
+
+                <div class="product-info-divider"></div>
+
+                <div class="product-info-note">
+                    <span class="product-info-dot"></span>
+                    <span>
+                        Los productos nuevos se registran como
+                        <strong>activos</strong> y estarán disponibles
+                        para crear pedidos.
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

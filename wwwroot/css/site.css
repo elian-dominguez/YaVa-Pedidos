@@ -1,27 +1,309 @@
+
+/* ========================================
+   YAVA - BISTRÓ MODERNO
+   ======================================== */
+
+:root {
+    --yava-espresso: #29251f;
+    --yava-espresso-light: #40382f;
+    --yava-terracotta: #c46b3b;
+    --yava-terracotta-hover: #a9542d;
+    --yava-cream: #f5ebdd;
+    --yava-olive: #75816b;
+    --yava-text: #302b25;
+    --yava-muted: #82796e;
+    --yava-border: #e8ded0;
+    --yava-white: #ffffff;
+}
+
+/* GENERAL */
+
 html {
-  font-size: 14px;
+    font-size: 14px;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+body.yava-app {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--yava-cream);
+    color: var(--yava-text);
+    font-family: "Segoe UI", Arial, sans-serif;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+.yava-content {
+    flex: 1;
+    padding-top: 36px;
+    padding-bottom: 60px;
 }
 
-body {
-  margin-bottom: 60px;
+/* HEADER */
+
+.yava-header {
+    background-color: var(--yava-espresso);
+    border-bottom: 3px solid var(--yava-terracotta);
 }
 
-/* El registro público está deshabilitado; esto oculta el enlace que trae Identity en Login. */
+.yava-navbar {
+    min-height: 82px;
+    padding: 12px 0;
+}
+
+/* MARCA */
+
+.yava-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: white !important;
+    text-decoration: none;
+}
+
+.yava-brand-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 13px;
+    background: var(--yava-terracotta);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.yava-brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+}
+
+    .yava-brand-text strong {
+        font-size: 25px;
+        font-weight: 750;
+        letter-spacing: -0.8px;
+    }
+
+    .yava-brand-text small {
+        margin-top: 5px;
+        color: #c9b9a7;
+        font-size: 9px;
+        letter-spacing: 1.5px;
+        font-weight: 600;
+    }
+
+/* NAVEGACIÓN */
+
+.yava-nav-link {
+    color: #e4d9cd !important;
+    font-weight: 500;
+    padding: 10px 16px !important;
+    border-radius: 9px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+    .yava-nav-link:hover,
+    .yava-nav-link:focus {
+        background: rgba(255, 255, 255, 0.09);
+        color: white !important;
+    }
+
+.yava-nav-button {
+    background-color: var(--yava-terracotta);
+    border: 1px solid var(--yava-terracotta);
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    padding: 10px 20px;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+    .yava-nav-button:hover {
+        background-color: var(--yava-terracotta-hover);
+        border-color: var(--yava-terracotta-hover);
+        color: white;
+        transform: translateY(-1px);
+    }
+
+/* TITULOS */
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--yava-espresso);
+    font-weight: 700;
+}
+
+/* TARJETAS */
+
+.card {
+    background: var(--yava-white);
+    border: 1px solid var(--yava-border);
+    border-radius: 16px;
+    box-shadow: 0 5px 22px rgba(41, 37, 31, 0.045);
+}
+
+.card-header {
+    background-color: #faf6f0;
+    border-bottom: 1px solid var(--yava-border);
+    border-radius: 16px 16px 0 0 !important;
+    padding: 16px 20px;
+}
+
+/* BOTONES */
+
+.btn {
+    border-radius: 9px;
+    font-weight: 600;
+    padding: 9px 17px;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background-color: var(--yava-terracotta);
+    border-color: var(--yava-terracotta);
+}
+
+    .btn-primary:hover,
+    .btn-primary:focus {
+        background-color: var(--yava-terracotta-hover);
+        border-color: var(--yava-terracotta-hover);
+    }
+
+.btn-outline-primary {
+    color: var(--yava-terracotta);
+    border-color: var(--yava-terracotta);
+}
+
+    .btn-outline-primary:hover {
+        color: white;
+        background-color: var(--yava-terracotta);
+        border-color: var(--yava-terracotta);
+    }
+
+.btn-success {
+    background-color: var(--yava-olive);
+    border-color: var(--yava-olive);
+}
+
+/* FORMULARIOS */
+
+.form-control,
+.form-select {
+    border: 1px solid #ded4c7;
+    border-radius: 10px;
+    padding: 11px 14px;
+    background-color: white;
+    color: var(--yava-text);
+}
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: var(--yava-terracotta);
+        box-shadow: 0 0 0 0.2rem rgba(196, 107, 59, 0.14);
+    }
+
+.form-label {
+    font-weight: 600;
+    color: var(--yava-text);
+    margin-bottom: 8px;
+}
+
+/* TABLAS */
+
+.table {
+    color: var(--yava-text);
+    vertical-align: middle;
+}
+
+    .table thead th {
+        background-color: #f8f1e8;
+        color: #6b5a49;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        border-bottom: 1px solid var(--yava-border);
+        padding: 15px;
+    }
+
+    .table tbody td {
+        padding: 15px;
+        border-color: #f0e9e0;
+    }
+
+    .table tbody tr:hover td {
+        background-color: #fcf8f3;
+    }
+
+/* ESTADOS */
+
+.badge {
+    border-radius: 7px;
+    padding: 7px 11px;
+    font-weight: 600;
+}
+
+/* FOOTER */
+
+.yava-footer {
+    padding: 20px 0;
+    background: var(--yava-espresso);
+    color: #c9b9a7;
+    font-size: 13px;
+    border-top: 1px solid var(--yava-espresso-light);
+}
+
+/* ACCESIBILIDAD */
+
+.btn:focus-visible,
+.nav-link:focus-visible,
+.form-check-input:focus-visible {
+    outline: 2px solid var(--yava-terracotta);
+    outline-offset: 2px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 991px) {
+    .yava-navbar {
+        min-height: 72px;
+    }
+
+        .yava-navbar .navbar-collapse {
+            padding-top: 18px;
+        }
+
+    .yava-nav-button {
+        margin-top: 8px;
+    }
+
+    .yava-content {
+        padding-top: 24px;
+    }
+}
+
+@media (max-width: 576px) {
+    .yava-brand-text strong {
+        font-size: 22px;
+    }
+
+    .yava-content {
+        padding-bottom: 35px;
+    }
+
+    .yava-footer .container {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* El registro público está deshabilitado. */
 a[href*="/Identity/Account/Register"] {
-  display: none !important;
+    display: none !important;
 }

@@ -1,0 +1,152 @@
+﻿
+.home-hero {
+    background: #29251f;
+    border-radius: 20px;
+    padding: 55px 55px;
+    color: #fff;
+    overflow: hidden;
+}
+
+.home-eyebrow {
+    color: #e6ae85;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.home-title {
+    color: #fff;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+}
+
+    .home-title span {
+        color: #e49a69;
+    }
+
+.home-description {
+    color: #d0c4b6;
+    font-size: 16px;
+    line-height: 1.8;
+    max-width: 580px;
+}
+
+.home-btn-outline {
+    border: 1px solid #9c8c7a;
+    color: #fff;
+}
+
+    .home-btn-outline:hover {
+        background: #fff;
+        border-color: #fff;
+        color: #29251f;
+    }
+
+.home-hero-symbol {
+    width: 195px;
+    height: 195px;
+    border: 2px solid rgba(228, 154, 105, 0.45);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.035);
+}
+
+    .home-hero-symbol span {
+        color: #e49a69;
+        font-size: 95px;
+        font-weight: 800;
+        line-height: 1;
+    }
+
+    .home-hero-symbol small {
+        color: #e6d5c2;
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 5px;
+    }
+
+.home-section-label {
+    display: inline-block;
+    color: #b7673d;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+    margin-bottom: 9px;
+}
+
+.home-role-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+    .home-role-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(41, 37, 31, 0.10);
+    }
+
+.home-role-icon {
+    width: 54px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    font-weight: 800;
+    font-size: 19px;
+}
+
+.home-role-caja {
+    background: #f9e7d8;
+    color: #b76638;
+}
+
+.home-role-cocina {
+    background: #e6eadf;
+    color: #627256;
+}
+
+.home-role-mostrador {
+    background: #eee6df;
+    color: #80634d;
+}
+
+.home-role-description {
+    color: #777067;
+    line-height: 1.7;
+    min-height: 82px;
+}
+
+.home-role-link {
+    color: #b8663c;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+    .home-role-link:hover {
+        color: #8f4827;
+        text-decoration: underline;
+    }
+
+.home-bottom-banner {
+    background: #fffaf4;
+    border: 1px solid #e8ded0;
+    border-radius: 16px;
+    padding: 28px 32px;
+}
+
+@media (max-width: 767px) {
+    .home-hero {
+        padding: 32px 24px;
+    }
+
+    .home-role-description {
+        min-height: auto;
+    }
+
+    .home-bottom-banner {
+        padding: 24px;
+    }
+}
