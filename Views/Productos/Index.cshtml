@@ -1,68 +1,194 @@
-﻿@model List<Producto>
+﻿
+@model List<Producto>
+
 @{
     ViewData["Title"] = "Productos";
 }
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h3">Administrar productos</h1>
-        <a asp-controller="Productos" asp-action="Create" class="btn btn-primary">+ Nuevo producto</a>
+@section Styles {
+    <link rel="stylesheet" href="~/css/productos.css" asp-append-version="true" />
+}
+
+<section class="products-page">
+
+    <div class="products-header d-flex flex-column flex-md-row
+                justify-content-between align-items-md-center gap-3 mb-4">
+
+        <div>
+            <span class="products-eyebrow">ADMINISTRACIÓN / CARTA</span>
+            <h1 class="products-title">Carta de productos</h1>
+            <p class="products-subtitle mb-0">
+                Administrá los productos, precios y disponibilidad
+                de tu restaurante.
+            </p>
+        </div>
+
+        <a asp-controller="Productos"
+           asp-action="Create"
+           class="btn btn-primary px-4">
+            + Nuevo producto
+        </a>
     </div>
 
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <table class="table table-hover align-middle">
-                <thead class="table-light">
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-4">
+            <div class="products-stat">
+                <span class="products-stat-label">TOTAL DE PRODUCTOS</span>
+                <strong>@Model.Count</strong>
+                <small>Productos registrados</small>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="products-stat">
+                <span class="products-stat-label">PRODUCTOS ACTIVOS</span>
+                <strong class="products-stat-active">
+                    @Model.Count(p => p.Activo)
+                </strong>
+                <small>Disponibles para pedidos</small>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="products-stat">
+                <span class="products-stat-label">PRODUCTOS INACTIVOS</span>
+                <strong class="products-stat-inactive">
+                    @Model.Count(p => !p.Activo)
+                </strong>
+                <small>No disponibles para pedidos</small>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card products-table-card">
+
+        <div class="products-table-heading">
+            <div>
+                <h2 class="h5 mb-1">Listado de productos</h2>
+                <p class="text-muted small mb-0">
+                    Gestioná la información de tu carta.
+                </p>
+            </div>
+
+            <span class="products-count">
+                @Model.Count productos
+            </span>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table products-table mb-0">
+
+                <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Precio</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
+                        <th>PRODUCTO</th>
+                        <th>PRECIO</th>
+                        <th>ESTADO</th>
+                        <th class="text-end">ACCIONES</th>
                     </tr>
                 </thead>
-                <tbody >
+
+                <tbody>
                     @foreach (var producto in Model)
                     {
                         <tr>
-                            <td>@producto.Id</td>
-                            <td>@producto.Nombre</td>
-                            <td>@producto.Precio</td>
+                            <td>
+                                <span class="products-id">
+                                    #@producto.Id
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="products-name">
+                                    @producto.Nombre
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="products-price">
+                                    @producto.Precio.ToString("C", new System.Globalization.CultureInfo("es-AR"))
+                                </span>
+                            </td>
+
                             <td>
                                 @if (producto.Activo)
                                 {
-                                    <span class="badge bg-success">Activo</span>
+                                    <span class="products-status products-status-active">
+                                        <span class="products-status-dot"></span>
+                                        Activo
+                                    </span>
                                 }
                                 else
                                 {
-                                    <span class="badge bg-secondary">Inactivo</span>
+                                    <span class="products-status products-status-inactive">
+                                        <span class="products-status-dot"></span>
+                                        Inactivo
+                                    </span>
                                 }
-                           </td>
-                           <td>
-                        <a asp-controller="Productos" asp-action="Edit" asp-route-id="@producto.Id" class="btn btn-outline-primary">
-                            Editar
-                        </a>
-                        <form asp-controller="Productos" asp-action="CambiarEstado" method="post" class="d-inline">
-                            <input type="hidden" name="id" value="@producto.Id" />
+                            </td>
 
-                                    @if (producto.Activo)
+                            <td>
+                                <div class="d-flex justify-content-end
+                                            align-items-center gap-2">
+
+                                    <a asp-controller="Productos"
+                                       asp-action="Edit"
+                                       asp-route-id="@producto.Id"
+                                       class="btn btn-sm products-edit-btn">
+                                        Editar
+                                    </a>
+
+                                    <form asp-controller="Productos"
+                                          asp-action="CambiarEstado"
+                                          method="post"
+                                          class="m-0">
+
+                                        <input type="hidden"
+                                               name="id"
+                                               value="@producto.Id" />
+
+                                        @if (producto.Activo)
                                         {
-                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                            <button type="submit"
+                                                    class="btn btn-sm products-disable-btn">
                                                 Desactivar
                                             </button>
                                         }
-                                    else
+                                        else
                                         {
-                                            <button type="submit" class="btn btn-sm btn-outline-success">
+                                            <button type="submit"
+                                                    class="btn btn-sm products-enable-btn">
                                                 Activar
                                             </button>
                                         }
-                        </form>
-                    </td>
+
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center py-5">
+                                <h3 class="h6">Todavía no hay productos</h3>
+                                <p class="text-muted mb-3">
+                                    Agregá tu primer producto para comenzar.
+                                </p>
+                                <a asp-controller="Productos"
+                                   asp-action="Create"
+                                   class="btn btn-primary">
+                                    + Crear producto
+                                </a>
+                            </td>
                         </tr>
                     }
                 </tbody>
+
             </table>
         </div>
     </div>
-</div>
 
+</section>

@@ -1,23 +1,54 @@
+
 @model List<Pedido>
+
 @{
     ViewData["Title"] = "Tablero";
 }
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <div>
-        <h1 class="h3 mb-0">Tablero de pedidos</h1>
-        <small class="text-muted">
-            <span id="estado-conexion" class="badge bg-secondary">conectando...</span>
-        </small>
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/pedidos.css"
+          asp-append-version="true" />
+}
+
+<section class="orders-page">
+
+    <div class="orders-header d-flex flex-column flex-md-row
+                justify-content-between align-items-md-center gap-3 mb-4">
+
+        <div>
+            <span class="orders-eyebrow">GESTIÓN / PEDIDOS</span>
+
+            <h1 class="orders-title">Tablero de pedidos</h1>
+
+            <p class="orders-subtitle mb-2">
+                Organizá y supervisá los pedidos de tu restaurante en tiempo real.
+            </p>
+
+            <div class="orders-connection">
+                <span class="orders-connection-label">Estado del sistema:</span>
+
+                <span id="estado-conexion" class="badge bg-secondary">
+                    Conectando...
+                </span>
+            </div>
+        </div>
+
+        <a asp-controller="Pedidos"
+           asp-action="Create"
+           class="btn btn-primary px-4">
+            + Nuevo pedido
+        </a>
+
     </div>
-    <a class="btn btn-primary" asp-action="Create">Nuevo pedido</a>
-</div>
 
-<div id="avisos"></div>
+    <div id="avisos"></div>
 
-<div id="tablero">
-    <partial name="_Tablero" model="Model" />
-</div>
+    <div id="tablero">
+        <partial name="_Tablero" model="Model" />
+    </div>
+
+</section>
 
 @section Scripts {
     <script src="~/lib/microsoft-signalr/signalr.min.js"></script>

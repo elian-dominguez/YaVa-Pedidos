@@ -1,0 +1,369 @@
+﻿
+/* ========================================
+   PRODUCTOS - BISTRÓ MODERNO
+   ======================================== */
+
+.products-page {
+    padding-bottom: 30px;
+}
+
+/* Encabezado */
+
+.products-eyebrow {
+    display: inline-block;
+    color: #b7673d;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+    margin-bottom: 10px;
+}
+
+.products-title {
+    font-size: clamp(28px, 3vw, 38px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+}
+
+.products-subtitle {
+    color: #82796e;
+    font-size: 15px;
+}
+
+/* Tarjetas de estadísticas */
+
+.products-stat {
+    background: #fff;
+    border: 1px solid #e8ded0;
+    border-radius: 16px;
+    padding: 23px 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    height: 100%;
+    box-shadow: 0 5px 20px rgba(41, 37, 31, 0.035);
+}
+
+.products-stat-label {
+    color: #8a7b6b;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
+}
+
+.products-stat strong {
+    color: #29251f;
+    font-size: 34px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+    .products-stat strong.products-stat-active {
+        color: #627256;
+    }
+
+    .products-stat strong.products-stat-inactive {
+        color: #b7673d;
+    }
+
+.products-stat small {
+    color: #82796e;
+    font-size: 12px;
+}
+
+/* Tabla */
+
+.products-table-card {
+    overflow: hidden;
+    border-radius: 16px;
+}
+
+.products-table-heading {
+    padding: 24px 26px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 1px solid #e8ded0;
+}
+
+.products-count {
+    background: #f5ebdd;
+    color: #796553;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.products-table {
+    min-width: 680px;
+}
+
+    .products-table thead th {
+        background: #faf6f0;
+        color: #8a7b6b;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        padding: 17px 25px;
+        border-bottom: 1px solid #e8ded0;
+    }
+
+    .products-table tbody td {
+        padding: 19px 25px;
+        vertical-align: middle;
+    }
+
+.products-id {
+    color: #9a8d80;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.products-name {
+    color: #29251f;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.products-price {
+    color: #40382f;
+    font-size: 15px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* Estados */
+
+.products-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.products-status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.products-status-active {
+    background: #e6eadf;
+    color: #627256;
+}
+
+.products-status-inactive {
+    background: #f4e8e0;
+    color: #a85e3b;
+}
+
+/* Botones de acciones */
+
+.products-edit-btn {
+    background: #f5ebdd;
+    color: #735c49;
+    border: 1px solid #e8ded0;
+}
+
+    .products-edit-btn:hover {
+        background: #e9d9c5;
+        color: #40382f;
+    }
+
+.products-disable-btn {
+    background: #fff;
+    color: #a85e3b;
+    border: 1px solid #e2c6b5;
+}
+
+    .products-disable-btn:hover {
+        background: #a85e3b;
+        color: white;
+        border-color: #a85e3b;
+    }
+
+.products-enable-btn {
+    background: #fff;
+    color: #627256;
+    border: 1px solid #bdcbb5;
+}
+
+    .products-enable-btn:hover {
+        background: #627256;
+        color: white;
+        border-color: #627256;
+    }
+
+/* Responsive */
+
+@media (max-width: 767px) {
+    .products-table-heading {
+        padding: 20px;
+    }
+
+    .products-table thead th,
+    .products-table tbody td {
+        padding: 15px;
+    }
+
+    .products-stat {
+        padding: 20px;
+    }
+}
+
+/* ========================================
+   FORMULARIOS DE PRODUCTOS
+   ======================================== */
+
+.product-form-page {
+    padding-bottom: 40px;
+}
+
+.product-back-link {
+    display: inline-block;
+    color: #9c6243;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    margin-bottom: 26px;
+}
+
+    .product-back-link:hover {
+        color: #713d26;
+        text-decoration: underline;
+    }
+
+.product-form-header {
+    margin-bottom: 30px;
+}
+
+.product-form-card {
+    overflow: hidden;
+}
+
+.product-form-card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 24px 28px;
+    border-bottom: 1px solid #e8ded0;
+    background: #fffaf5;
+}
+
+.product-form-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: #f8e5d6;
+    color: #b7673d;
+    border-radius: 13px;
+    font-size: 27px;
+    font-weight: 700;
+}
+
+.product-form-body {
+    padding: 32px;
+}
+
+.product-price-group .input-group-text {
+    background: #f8f1e8;
+    color: #80634d;
+    border: 1px solid #ded4c7;
+    border-right: 0;
+    font-weight: 700;
+    padding: 0 18px;
+    border-radius: 10px 0 0 10px;
+}
+
+.product-price-group .form-control {
+    border-radius: 0 10px 10px 0;
+}
+
+.product-price-group:focus-within .input-group-text {
+    border-color: #c46b3b;
+}
+
+.product-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 24px;
+    border-top: 1px solid #eee6db;
+}
+
+.product-cancel-btn {
+    background: #f5ebdd;
+    color: #735c49;
+    border: 1px solid #e8ded0;
+}
+
+    .product-cancel-btn:hover {
+        background: #e9d9c5;
+        color: #40382f;
+    }
+
+/* Panel informativo */
+
+.product-info-panel {
+    background: #fffaf4;
+    border: 1px solid #e8ded0;
+    border-radius: 16px;
+    padding: 28px;
+}
+
+    .product-info-panel p {
+        color: #82796e;
+        font-size: 14px;
+        line-height: 1.8;
+    }
+
+.product-info-divider {
+    height: 1px;
+    background: #e8ded0;
+    margin: 22px 0;
+}
+
+.product-info-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    color: #627256;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.product-info-dot {
+    flex-shrink: 0;
+    width: 9px;
+    height: 9px;
+    margin-top: 7px;
+    background: #75816b;
+    border-radius: 50%;
+}
+
+/* Responsive */
+
+@media (max-width: 767px) {
+    .product-form-card-header {
+        padding: 20px;
+    }
+
+    .product-form-body {
+        padding: 22px;
+    }
+
+    .product-info-panel {
+        padding: 22px;
+    }
+}

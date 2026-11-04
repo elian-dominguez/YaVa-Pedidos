@@ -1,11 +1,13 @@
-    @using YaVa.Controllers
+
+@using YaVa.Controllers
 @model List<Pedido>
+
 @{
-    var columnas = new (EstadoPedido Estado, string Titulo, string Color)[]
+    var columnas = new (EstadoPedido Estado, string Titulo, string Color, string Clase, string Descripcion)[]
     {
-        (EstadoPedido.Pendiente, "Pendientes", "secondary"),
-        (EstadoPedido.EnPreparacion, "En preparación", "warning"),
-        (EstadoPedido.Listo, "Listos para entregar", "success")
+        (EstadoPedido.Pendiente, "Pendientes", "secondary", "pending", "Esperando para comenzar"),
+        (EstadoPedido.EnPreparacion, "En preparación", "warning", "preparing", "Pedidos en cocina"),
+        (EstadoPedido.Listo, "Listos para entregar", "success", "ready", "Esperando entrega")
     };
 
     string TextoBoton(EstadoPedido siguiente) => siguiente switch
@@ -17,52 +19,141 @@
     };
 }
 
-<div class="row g-3">
+<div class="row g-4 orders-board">
+
     @foreach (var columna in columnas)
     {
         var pedidos = Model.Where(p => p.Estado == columna.Estado).ToList();
-        <div class="col-md-4">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-                <h2 class="h6 text-uppercase text-muted mb-0">@columna.Titulo</h2>
-                <span class="badge bg-@columna.Color">@pedidos.Count</span>
-            </div>
 
-            @if (pedidos.Count == 0)
-            {
-                <p class="text-muted small">Sin pedidos.</p>
-            }
+        <div class="col-lg-4">
 
-            @foreach (var pedido in pedidos)
-            {
-                var siguiente = PedidosController.SiguienteEstado(pedido.Estado);
+            <section class="orders-column orders-column-@columna.Clase">
 
-                <div class="card mb-3 border-@columna.Color" data-pedido="@pedido.Id">
-                    <div class="card-header d-flex justify-content-between align-items-center py-2">
-                        <strong>Mesa @pedido.Mesa</strong>
-                        <small class="text-muted">#@pedido.Id · @pedido.CreadoEn.ToString("HH:mm")</small>
+                <!-- Encabezado de columna -->
+                <div class="orders-column-header">
+
+                    <div class="orders-column-heading">
+                        <span class="orders-column-indicator"></span>
+
+                        <div>
+                            <h2>@columna.Titulo</h2>
+                            <p>@columna.Descripcion</p>
+                        </div>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        @foreach (var item in pedido.Items)
-                        {
-                            <li class="list-group-item py-1 d-flex justify-content-between">
-                                <span>@item.Cantidad x @(item.Producto?.Nombre ?? "?")</span>
-                                <span class="text-muted">@((item.Cantidad * item.PrecioUnitario).ToString("C0"))</span>
-                            </li>
-                        }
-                    </ul>
-                    <div class="card-footer d-flex justify-content-between align-items-center py-2">
-                        <strong>@pedido.Total.ToString("C0")</strong>
-                        @if (siguiente is not null)
-                        {
-                            <form asp-action="CambiarEstado" method="post" class="m-0">
-                                <input type="hidden" name="id" value="@pedido.Id" />
-                                <input type="hidden" name="estado" value="@siguiente" />
-                                <button type="submit" class="btn btn-sm btn-outline-dark">@TextoBoton(siguiente.Value)</button>
-                            </form>
-                        }
-                    </div>
+
+                    <span class="orders-column-count">
+                        @pedidos.Count
+                    </span>
+
                 </div>
-            }
+
+                <!-- Contenido -->
+                <div class="orders-column-body">
+
+                    @if (pedidos.Count == 0)
+                    {
+                        <div class="orders-empty">
+                            <div class="orders-empty-icon">
+                                @if (columna.Estado == EstadoPedido.Pendiente)
+                                {
+                                    <span>01</span>
+                                }
+                                else if (columna.Estado == EstadoPedido.EnPreparacion)
+                                {
+                                    <span>02</span>
+                                }
+                                else
+                                {
+                                    <span>03</span>
+                                }
+                            </div>
+
+                            <h3>Sin pedidos</h3>
+
+                            <p>
+                                No hay pedidos en esta etapa por el momento.
+                            </p>
+                        </div>
+                    }
+
+                    @foreach (var pedido in pedidos)
+                    {
+                        var siguiente = PedidosController.SiguienteEstado(pedido.Estado);
+
+                        <article class="orders-ticket" data-pedido="@pedido.Id">
+
+                            <!-- Encabezado del pedido -->
+                            <div class="orders-ticket-header">
+                                <div>
+                                    <span class="orders-ticket-label">PEDIDO #@pedido.Id</span>
+                                    <h3>Mesa @pedido.Mesa</h3>
+                                </div>
+
+                                <span class="orders-ticket-time">
+                                    @pedido.CreadoEn.ToString("HH:mm")
+                                </span>
+                            </div>
+
+                            <!-- Productos -->
+                            <div class="orders-ticket-items">
+
+                                @foreach (var item in pedido.Items)
+                                {
+                                    <div class="orders-ticket-item">
+                                        <span>
+                                            <strong>@item.Cantidad x</strong>
+                                            @(item.Producto?.Nombre ?? "?")
+                                        </span>
+
+                                        <span class="orders-item-price">
+                                            @((item.Cantidad * item.PrecioUnitario).ToString("C0"))
+                                        </span>
+                                    </div>
+                                }
+
+                            </div>
+
+                            <!-- Total y acción -->
+                            <div class="orders-ticket-footer">
+
+                                <div class="orders-ticket-total">
+                                    <small>TOTAL</small>
+                                    <strong>@pedido.Total.ToString("C0")</strong>
+                                </div>
+
+                                @if (siguiente is not null)
+                                {
+                                    <form asp-controller="Pedidos"
+                                          asp-action="CambiarEstado"
+                                          method="post"
+                                          class="m-0">
+
+                                        <input type="hidden"
+                                               name="id"
+                                               value="@pedido.Id" />
+
+                                        <input type="hidden"
+                                               name="estado"
+                                               value="@siguiente" />
+
+                                        <button type="submit"
+                                                class="btn orders-advance-btn">
+                                            @TextoBoton(siguiente.Value) →
+                                        </button>
+
+                                    </form>
+                                }
+
+                            </div>
+
+                        </article>
+                    }
+
+                </div>
+
+            </section>
+
         </div>
     }
+
 </div>

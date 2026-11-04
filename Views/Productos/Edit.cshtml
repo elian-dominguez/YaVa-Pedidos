@@ -5,45 +5,152 @@
     ViewData["Title"] = "Editar producto";
 }
 
-<div class="container mt-4">
-    <h1 class="h3 mb-4">Editar producto</h1>
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/productos.css"
+          asp-append-version="true" />
+}
 
-    <div class="card shadow-sm">
-        <div class="card-body p-4">
+<section class="product-form-page">
 
-            <form asp-controller="Productos" asp-action="Edit" method="post">
+    <a asp-controller="Productos"
+       asp-action="Index"
+       class="product-back-link">
+        ← Volver a productos
+    </a>
 
-                <input type="hidden" asp-for="Id" />
+    <div class="product-form-header">
+        <span class="products-eyebrow">ADMINISTRACIÓN / CARTA</span>
 
-                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <h1 class="products-title">Editar producto</h1>
 
-                <div class="mb-3">
-                    <label asp-for="Nombre" class="form-label"></label>
-                    <input asp-for="Nombre" class="form-control" />
-                    <span asp-validation-for="Nombre" class="text-danger"></span>
-                </div>
-
-                <div class="mb-3">
-                    <label asp-for="Precio" class="form-label"></label>
-                    <input asp-for="Precio" class="form-control" />
-                    <span asp-validation-for="Precio" class="text-danger"></span>
-                </div>
-
-                <div class="d-flex gap-2">
-                    <button type="submit" class="btn btn-primary">
-                        Guardar cambios
-                    </button>
-
-                    <a asp-action="Index" class="btn btn-outline-secondary">
-                        Cancelar
-                    </a>
-                </div>
-
-            </form>
-
-        </div>
+        <p class="products-subtitle">
+            Modificá la información de un producto de tu carta.
+        </p>
     </div>
-</div>
+
+    <div class="row g-4">
+
+        <div class="col-lg-8">
+            <div class="card product-form-card">
+
+                <div class="product-form-card-header">
+                    <div class="product-form-icon">
+                        ✎
+                    </div>
+
+                    <div>
+                        <h2 class="h5 mb-1">Información del producto</h2>
+                        <p class="text-muted small mb-0">
+                            Actualizá los datos del producto seleccionado.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card-body product-form-body">
+
+                    <form asp-controller="Productos"
+                          asp-action="Edit"
+                          method="post">
+
+                        <input type="hidden" asp-for="Id" />
+
+                        <div asp-validation-summary="ModelOnly"
+                             class="text-danger mb-3"></div>
+
+                        <div class="mb-4">
+                            <label asp-for="Nombre" class="form-label">
+                                Nombre del producto
+                            </label>
+
+                            <input asp-for="Nombre"
+                                   class="form-control"
+                                   placeholder="Ej: Hamburguesa completa" />
+
+                            <span asp-validation-for="Nombre"
+                                  class="text-danger small"></span>
+
+                            <div class="form-text">
+                                Este nombre se mostrará al crear pedidos.
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Precio" class="form-label">
+                                Precio de venta
+                            </label>
+
+                            <div class="input-group product-price-group">
+                                <span class="input-group-text">$</span>
+
+                                <input asp-for="Precio"
+                                       class="form-control" />
+                            </div>
+
+                            <span asp-validation-for="Precio"
+                                  class="text-danger small"></span>
+
+                            <div class="form-text">
+                                Ingresá el precio actualizado en pesos argentinos.
+                            </div>
+                        </div>
+
+                        <div class="product-form-actions">
+
+                            <a asp-controller="Productos"
+                               asp-action="Index"
+                               class="btn product-cancel-btn">
+                                Cancelar
+                            </a>
+
+                            <button type="submit"
+                                    class="btn btn-primary px-4">
+                                Guardar cambios
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="product-info-panel">
+
+                <span class="products-eyebrow">INFORMACIÓN</span>
+
+                <h3 class="h6 mb-3">Editando producto</h3>
+
+                <p>
+                    Estás modificando la información del producto
+                    <strong>@Model.Nombre</strong>.
+                </p>
+
+                <div class="product-info-divider"></div>
+
+                <div class="product-info-note">
+                    <span class="product-info-dot"></span>
+
+                    <span>
+                        Los cambios en el nombre y el precio
+                        se guardarán al confirmar el formulario.
+                    </span>
+                </div>
+
+                <div class="product-info-divider"></div>
+
+                <p class="mb-0">
+                    <strong>ID del producto:</strong> #@Model.Id
+                </p>
+
+            </div>
+        </div>
+
+    </div>
+
+</section>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
