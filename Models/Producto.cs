@@ -14,4 +14,6 @@ public class Producto
     [Precision(10, 2)]
     [Range(0, 999999, ErrorMessage = "El precio no puede ser negativo")]
     public decimal Precio { get; set; }
+
+    public bool Activo { get; set; } = true;
 }

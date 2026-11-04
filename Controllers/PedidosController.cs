@@ -49,7 +49,7 @@ public class PedidosController : Controller
 
         var ids = elegidas.Select(l => l.ProductoId).ToList();
         var productos = await _db.Productos
-            .Where(p => ids.Contains(p.Id))
+            .Where(p => ids.Contains(p.Id) && p.Activo)
             .ToDictionaryAsync(p => p.Id);
 
         var pedido = new Pedido
@@ -123,7 +123,7 @@ public class PedidosController : Controller
 
     private async Task<NuevoPedidoViewModel> ArmarFormularioAsync(NuevoPedidoViewModel? vm = null)
     {
-        var productos = await _db.Productos.OrderBy(p => p.Nombre).ToListAsync();
+        var productos = await _db.Productos.Where(p => p.Activo).OrderBy(p => p.Nombre).ToListAsync();
         var cantidades = vm?.Lineas.ToDictionary(l => l.ProductoId, l => l.Cantidad)
                          ?? new Dictionary<int, int>();
 
