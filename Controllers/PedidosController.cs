@@ -29,6 +29,11 @@ public class PedidosController : Controller
 
     public async Task<IActionResult> Create()
     {
+        if (!User.IsInRole(SeedDatos.RolCaja))
+        {
+            return StatusCode(StatusCodes.Status403Forbidden);
+        }
+
         return View(await ArmarFormularioAsync());
     }
 
@@ -36,6 +41,11 @@ public class PedidosController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(NuevoPedidoViewModel vm)
     {
+        if (!User.IsInRole(SeedDatos.RolCaja))
+        {
+            return StatusCode(StatusCodes.Status403Forbidden);
+        }
+
         var elegidas = vm.Lineas.Where(l => l.Cantidad > 0).ToList();
         if (elegidas.Count == 0)
         {
@@ -55,7 +65,7 @@ public class PedidosController : Controller
         var pedido = new Pedido
         {
             Mesa = vm.Mesa,
-            CreadoPor = "",
+            CreadoPor = User.Identity?.Name ?? "",
             CreadoEn = DateTime.Now,
             Estado = EstadoPedido.Pendiente
         };
@@ -87,9 +97,15 @@ public class PedidosController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> CambiarEstado(int id, EstadoPedido estado)
     {
-        if (RolQuePuedePasarA(estado) is null)
+        var rolRequerido = RolQuePuedePasarA(estado);
+        if (rolRequerido is null)
         {
             return BadRequest();
+        }
+
+        if (!User.IsInRole(rolRequerido))
+        {
+            return StatusCode(StatusCodes.Status403Forbidden);
         }
 
         var pedido = await _db.Pedidos.FindAsync(id);
