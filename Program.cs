@@ -2,6 +2,8 @@
 using YaVa.Data;
 using YaVa.Hubs;
 using YaVa.Services;
+using Microsoft.AspNetCore.Identity;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,16 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddControllersWithViews();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequiredLength = 6;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+})
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
 builder.Services.AddSignalR();
 builder.Services.AddScoped<AvisadorPedidos>();
 
@@ -31,6 +43,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -41,6 +54,11 @@ app.MapHub<PedidosHub>("/hubs/pedidos");
 using (var scope = app.Services.CreateScope())
 {
     await SeedDatos.InicializarAsync(scope.ServiceProvider);
+
+    var roleManager = scope.ServiceProvider
+        .GetRequiredService<RoleManager<IdentityRole>>();
+
+    await SeedRoles.InicializarAsync(roleManager);
 }
 
 app.Run();
