@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using YaVa.Models;
 
 namespace YaVa.Data;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : IdentityDbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
@@ -16,6 +18,8 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        base.OnModelCreating(builder);
+
         builder.Entity<PedidoItem>()
             .HasOne(i => i.Pedido)
             .WithMany(p => p.Items)
