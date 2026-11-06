@@ -44,6 +44,9 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthentication();
+if (app.Environment.IsDevelopment())
+    app.UsarUsuarioDePrueba();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(

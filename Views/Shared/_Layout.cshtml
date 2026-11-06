@@ -64,14 +64,16 @@
                             </a>
                         </li>
 
-                        <li class="nav-item ms-lg-3">
-                            <a class="btn yava-nav-button"
-                               asp-controller="Pedidos"
-                               asp-action="Create">
-                                + Nuevo pedido
-                            </a>
-                        </li>
-
+                        @if (User.IsInRole(YaVa.Data.SeedDatos.RolCaja))
+                        {
+                            <li class="nav-item ms-lg-3">
+                                <a class="btn yava-nav-button"
+                                   asp-controller="Pedidos"
+                                   asp-action="Create">
+                                    + Nuevo pedido
+                                </a>
+                            </li>
+                        }
                     </ul>
                 </div>
 

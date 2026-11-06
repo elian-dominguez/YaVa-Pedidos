@@ -25,10 +25,9 @@ function mostrarAviso(pedido) {
     setTimeout(() => aviso.remove(), 5000);
 }
 
-connection.on("PedidoActualizado", async (pedido) => {
-    await refrescarTablero();
-    mostrarAviso(pedido);
-});
+connection.on("TableroActualizado", refrescarTablero);
+
+connection.on("PedidoActualizado", (pedido) => mostrarAviso(pedido));
 
 connection.onreconnecting(() => marcarConexion("reconectando...", "warning"));
 

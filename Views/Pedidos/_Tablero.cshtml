@@ -121,7 +121,7 @@
                                     <strong>@pedido.Total.ToString("C0")</strong>
                                 </div>
 
-                                @if (siguiente is not null)
+                                @if (siguiente is not null && User.IsInRole(PedidosController.RolQuePuedePasarA(siguiente.Value) ?? ""))
                                 {
                                     <form asp-controller="Pedidos"
                                           asp-action="CambiarEstado"
