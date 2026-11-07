@@ -79,6 +79,9 @@
                     @foreach (var pedido in pedidos)
                     {
                         var siguiente = PedidosController.SiguienteEstado(pedido.Estado);
+                        var rolNecesario = siguiente is not null
+                            ? PedidosController.RolQuePuedePasarA(siguiente.Value)
+                            : null;
 
                         <article class="orders-ticket" data-pedido="@pedido.Id">
 
@@ -121,7 +124,10 @@
                                     <strong>@pedido.Total.ToString("C0")</strong>
                                 </div>
 
-                                @if (siguiente is not null)
+
+                                @if (siguiente is not null &&
+                                    (User.IsInRole("Administrador") ||
+                                     (rolNecesario is not null && User.IsInRole(rolNecesario))))
                                 {
                                     <form asp-controller="Pedidos"
                                           asp-action="CambiarEstado"

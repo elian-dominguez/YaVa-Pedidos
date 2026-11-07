@@ -1,13 +1,48 @@
+
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
 
 namespace YaVa.Hubs;
 
+[Authorize(Roles = "Administrador,Caja,Cocina,Mostrador")]
 public class PedidosHub : Hub
 {
+    private readonly UserManager<IdentityUser> _userManager;
+
+    public PedidosHub(UserManager<IdentityUser> userManager)
+    {
+        _userManager = userManager;
+    }
+
     public override async Task OnConnectedAsync()
     {
-        // Cuando esté el login, acá hay que meter a cada conexión en el grupo de su rol
-        // (Caja, Cocina o Mostrador). El grupo lo tiene que decidir el servidor, no el navegador.
+        var usuario = await _userManager.GetUserAsync(Context.User);
+
+        if (usuario == null ||
+            await _userManager.IsLockedOutAsync(usuario))
+        {
+            Context.Abort();
+            return;
+        }
+
+        string[] roles =
+        {
+            "Administrador",
+            "Caja",
+            "Cocina",
+            "Mostrador"
+        };
+
+        foreach (var rol in roles)
+        {
+            if (Context.User?.IsInRole(rol) == true)
+            {
+                await Groups.AddToGroupAsync(
+                    Context.ConnectionId, rol);
+            }
+        }
+
         await base.OnConnectedAsync();
     }
 }

@@ -28,6 +28,11 @@ public class AvisadorPedidos
         };
 
         await _hub.Clients.All.SendAsync("PedidoActualizado", aviso);
+
+        var grupos = GruposQueAvisar(pedido.Estado);
+
+        await _hub.Clients.Groups(grupos)
+            .SendAsync("NotificacionPedido", aviso);
     }
 
     public static string[] GruposQueAvisar(EstadoPedido estado) => estado switch

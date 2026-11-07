@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using YaVa.Data;
 using YaVa.Models;
 
 namespace YaVa.Controllers
 {
+
+    [Authorize(Roles = "Administrador")]
     public class ProductosController : Controller
     {
 

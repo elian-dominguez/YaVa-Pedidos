@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using YaVa.Data;
@@ -16,22 +17,24 @@ public class PedidosController : Controller
         _db = db;
         _avisador = avisador;
     }
-
+    [Authorize(Roles = "Administrador,Caja,Cocina,Mostrador")]
     public async Task<IActionResult> Index()
     {
         return View(await PedidosEnCursoAsync());
     }
-
+    [Authorize(Roles = "Administrador,Caja,Cocina,Mostrador")]
     public async Task<IActionResult> Tablero()
     {
         return PartialView("_Tablero", await PedidosEnCursoAsync());
     }
 
+    [Authorize(Roles = "Administrador,Caja")]
     public async Task<IActionResult> Create()
     {
         return View(await ArmarFormularioAsync());
     }
 
+    [Authorize(Roles = "Administrador,Caja")]
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(NuevoPedidoViewModel vm)
@@ -82,17 +85,25 @@ public class PedidosController : Controller
 
         return RedirectToAction(nameof(Index));
     }
-
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Administrador,Cocina,Mostrador")]
     public async Task<IActionResult> CambiarEstado(int id, EstadoPedido estado)
     {
-        if (RolQuePuedePasarA(estado) is null)
+        var rolNecesario = RolQuePuedePasarA(estado);
+
+        if (rolNecesario is null)
         {
             return BadRequest();
         }
 
+        if (!User.IsInRole("Administrador") && !User.IsInRole(rolNecesario))
+        {
+            return Forbid();
+        }
+        
         var pedido = await _db.Pedidos.FindAsync(id);
+        
         if (pedido is null)
         {
             return NotFound();

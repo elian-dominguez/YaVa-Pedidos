@@ -25,8 +25,11 @@ function mostrarAviso(pedido) {
     setTimeout(() => aviso.remove(), 5000);
 }
 
-connection.on("PedidoActualizado", async (pedido) => {
+connection.on("PedidoActualizado", async () => {
     await refrescarTablero();
+});
+
+connection.on("NotificacionPedido", (pedido) => {
     mostrarAviso(pedido);
 });
 
