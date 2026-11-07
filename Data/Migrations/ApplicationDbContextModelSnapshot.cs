@@ -231,6 +231,9 @@ namespace YaVa.Data.Migrations
                     b.Property<DateTime>("CreadoEn")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("EntregadoEn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("CreadoPor")
                         .IsRequired()
                         .HasMaxLength(256)

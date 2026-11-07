@@ -127,11 +127,30 @@ public class PedidosController : Controller
         }
 
         pedido.Estado = estado;
+
+        if (estado == EstadoPedido.Entregado)
+        {
+            pedido.EntregadoEn = DateTime.Now;
+        }
+
         await _db.SaveChangesAsync();
 
         await _notificador.NotificarAsync(pedido);
 
         return RedirectToAction(nameof(Index));
+    }
+
+    [Authorize(Roles = "Administrador,Caja,Cocina,Mostrador")]
+    public async Task<IActionResult> Historial()
+    {
+        var pedidos = await _db.Pedidos
+            .Include(p => p.Items)
+            .ThenInclude(i => i.Producto)
+            .Where(p => p.Estado == EstadoPedido.Entregado)
+            .OrderByDescending(p => p.EntregadoEn ?? p.CreadoEn)
+            .ToListAsync();
+
+        return View(pedidos);
     }
 
     private async Task<List<Pedido>> PedidosEnCursoAsync()

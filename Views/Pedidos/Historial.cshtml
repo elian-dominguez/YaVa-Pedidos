@@ -1,0 +1,101 @@
+@model List<Pedido>
+
+@{
+    ViewData["Title"] = "Historial";
+    var hoy = Model.Count(p => (p.EntregadoEn ?? p.CreadoEn).Date == DateTime.Today);
+}
+
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/historial.css"
+          asp-append-version="true" />
+}
+
+<section class="history-page">
+
+    <div class="history-header mb-4">
+        <span class="history-eyebrow">GESTIÓN / PEDIDOS</span>
+        <h1 class="history-title">Historial de entregas</h1>
+        <p class="history-subtitle mb-0">
+            Pedidos que ya se entregaron. El tablero solo muestra los que siguen en curso.
+        </p>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="history-stat">
+                <span class="history-stat-label">ENTREGADOS</span>
+                <strong>@Model.Count</strong>
+                <small>Pedidos cerrados</small>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="history-stat">
+                <span class="history-stat-label">HOY</span>
+                <strong>@hoy</strong>
+                <small>Entregas de hoy</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="card history-table-card">
+
+        <div class="history-table-heading">
+            <div>
+                <h2 class="h5 mb-0">Pedidos entregados</h2>
+            </div>
+            <span class="history-count">
+                @Model.Count pedidos
+            </span>
+        </div>
+
+        @if (Model.Count == 0)
+        {
+            <div class="history-empty">
+                <h3>Todavía no hay entregas</h3>
+                <p>
+                    Cuando el mostrador marque un pedido como entregado, va a aparecer acá.
+                </p>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table history-table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Pedido</th>
+                            <th>Mesa</th>
+                            <th>Productos</th>
+                            <th>Total</th>
+                            <th>Cargado</th>
+                            <th>Entregado</th>
+                            <th>Creado por</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var pedido in Model)
+                        {
+                            <tr>
+                                <td class="history-id">#@pedido.Id</td>
+                                <td>@pedido.Mesa</td>
+                                <td>
+                                    @string.Join(" · ", pedido.Items.Select(i =>
+                                        $"{i.Cantidad} x {i.Producto?.Nombre ?? "?"}"))
+                                </td>
+                                <td>@pedido.Total.ToString("C0")</td>
+                                <td>@pedido.CreadoEn.ToString("dd/MM HH:mm")</td>
+                                <td>
+                                    @(pedido.EntregadoEn?.ToString("dd/MM HH:mm") ?? "—")
+                                </td>
+                                <td>@(string.IsNullOrWhiteSpace(pedido.CreadoPor) ? "—" : pedido.CreadoPor)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+
+    </div>
+
+</section>
