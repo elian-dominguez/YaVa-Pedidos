@@ -1,0 +1,31 @@
+
+@{
+    ViewData["Title"] = "Acceso denegado";
+}
+
+<link rel="stylesheet"
+      href="~/css/acceso-denegado.css"
+      asp-append-version="true" />
+
+<div class="acceso-container">
+    <div class="acceso-card">
+
+        <div class="acceso-icono">
+            <span>!</span>
+        </div>
+
+        <h1>Acceso denegado</h1>
+
+        <p>
+            No tenés permisos para acceder a esta sección.
+            Si necesitás ingresar, contactá al administrador.
+        </p>
+
+        <a asp-controller="Home"
+           asp-action="Index"
+           class="btn acceso-boton">
+            Volver al inicio
+        </a>
+
+    </div>
+</div>

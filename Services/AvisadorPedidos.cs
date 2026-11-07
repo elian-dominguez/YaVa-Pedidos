@@ -35,9 +35,12 @@ public class AvisadorPedidos
             Estado = pedido.Estado.Texto()
         };
 
-        await _hub.Clients.Groups(TodosLosRoles).SendAsync("TableroActualizado");
+        await _hub.Clients.All.SendAsync("PedidoActualizado", aviso);
 
-        await _hub.Clients.Groups(GruposQueAvisar(pedido.Estado)).SendAsync("PedidoActualizado", aviso);
+        var grupos = GruposQueAvisar(pedido.Estado);
+
+        await _hub.Clients.Groups(grupos)
+            .SendAsync("NotificacionPedido", aviso);
     }
 
     public static string[] GruposQueAvisar(EstadoPedido estado) => estado switch

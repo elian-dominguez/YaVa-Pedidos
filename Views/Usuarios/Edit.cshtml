@@ -1,0 +1,73 @@
+﻿
+@model YaVa.Models.EditarUsuarioViewModel
+
+@{
+    ViewData["Title"] = "Editar empleado";
+}
+
+<div class="container mt-5" style="max-width: 650px;">
+
+    <div class="mb-4">
+        <h2>Editar empleado</h2>
+        <p class="text-muted">
+            Modificá el puesto de trabajo del empleado.
+        </p>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+
+            <form asp-controller="Usuarios"
+                  asp-action="Edit"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" asp-for="Id" />
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label class="form-label">Nombre de usuario</label>
+
+                    <input value="@Model.NombreUsuario"
+                           class="form-control"
+                           readonly />
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Rol" class="form-label">
+                        Puesto de trabajo
+                    </label>
+
+                    <select asp-for="Rol" class="form-select">
+                        <option value="Caja">Caja</option>
+                        <option value="Cocina">Cocina</option>
+                        <option value="Mostrador">Mostrador</option>
+                    </select>
+
+                    <span asp-validation-for="Rol"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index"
+                       class="btn btn-outline-secondary">
+                        Cancelar
+                    </a>
+
+                    <button type="submit" class="btn btn-primary">
+                        Guardar cambios
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
