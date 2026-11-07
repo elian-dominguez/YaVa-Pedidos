@@ -58,7 +58,7 @@ quedó guardado:
 pedido.Estado = estado;
 await _db.SaveChangesAsync();
 
-await _avisador.AvisarAsync(pedido);
+await _notificador.NotificarAsync(pedido);
 ```
 
 ## Tecnologías
@@ -94,7 +94,7 @@ la otra sin recargar.
 
 ```
 Hubs/PedidosHub.cs               El Hub de SignalR
-Services/AvisadorPedidos.cs      A quién se le manda el aviso
+Services/NotificadorPedidos.cs   A quién se le manda el aviso
 Controllers/PedidosController.cs Tablero, carga de pedidos y cambios de estado
 Models/                          Pedido, PedidoItem, Producto y el recorrido de estados
 Data/ApplicationDbContext.cs     El contexto de Entity Framework
