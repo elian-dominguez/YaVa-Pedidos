@@ -51,7 +51,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 
 builder.Services.AddSignalR();
-builder.Services.AddScoped<AvisadorPedidos>();
+builder.Services.AddScoped<NotificadorPedidos>();
 builder.Services.AddScoped<UsuarioService>();
 
 var app = builder.Build();

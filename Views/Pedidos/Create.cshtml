@@ -78,26 +78,26 @@
 
                             <tbody>
                                 
-                                @for (var i = 0; i < Model.Lineas.Count; i++)
+                                @for (var i = 0; i < Model.Items.Count; i++)
                                 {
                                     <tr class="pedido-fila"
-                                        data-nombre="@Model.Lineas[i].Nombre"
-                                        data-precio="@Model.Lineas[i].Precio.ToString(System.Globalization.CultureInfo.InvariantCulture)">
+                                        data-nombre="@Model.Items[i].Nombre"
+                                        data-precio="@Model.Items[i].Precio.ToString(System.Globalization.CultureInfo.InvariantCulture)">
 
                                         <td class="pedido-producto-nombre">
-                                            @Model.Lineas[i].Nombre
+                                            @Model.Items[i].Nombre
 
-                                            <input type="hidden" asp-for="Lineas[i].ProductoId" />
-                                            <input type="hidden" asp-for="Lineas[i].Nombre" />
-                                            <input type="hidden" asp-for="Lineas[i].Precio" />
+                                            <input type="hidden" asp-for="Items[i].ProductoId" />
+                                            <input type="hidden" asp-for="Items[i].Nombre" />
+                                            <input type="hidden" asp-for="Items[i].Precio" />
                                         </td>
 
                                         <td class="pedido-precio">
-                                            @Model.Lineas[i].Precio.ToString("C0")
+                                            @Model.Items[i].Precio.ToString("C0")
                                         </td>
 
                                         <td class="pedido-cantidad">
-                                            <input asp-for="Lineas[i].Cantidad"
+                                            <input asp-for="Items[i].Cantidad"
                                                    type="number"
                                                    min="0"
                                                    max="50"
