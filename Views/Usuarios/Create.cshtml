@@ -1,0 +1,95 @@
+﻿
+@model YaVa.Models.CrearUsuarioViewModel
+
+@{
+    ViewData["Title"] = "Nuevo empleado";
+}
+
+<div class="container mt-5" style="max-width: 650px;">
+
+    <div class="mb-4">
+        <h2>Nuevo empleado</h2>
+        <p class="text-muted">
+            Registrá un nuevo usuario para YaVa.
+        </p>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+
+            <form asp-controller="Usuarios"
+                  asp-action="Create"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="NombreUsuario"
+                           class="form-label">
+                        Nombre de usuario
+                    </label>
+
+                    <input asp-for="NombreUsuario"
+                           class="form-control"
+                           autocomplete="off" />
+
+                    <span asp-validation-for="NombreUsuario"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Password"
+                           class="form-label">
+                        Contraseña
+                    </label>
+
+                    <input asp-for="Password"
+                           class="form-control"
+                           autocomplete="new-password" />
+
+                    <span asp-validation-for="Password"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Rol"
+                           class="form-label">
+                        Puesto de trabajo
+                    </label>
+
+                    <select asp-for="Rol" class="form-select">
+                        <option value="">Seleccionar puesto</option>
+                        <option value="Caja">Caja</option>
+                        <option value="Cocina">Cocina</option>
+                        <option value="Mostrador">Mostrador</option>
+                    </select>
+
+                    <span asp-validation-for="Rol"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-controller="Usuarios"
+                       asp-action="Index"
+                       class="btn btn-outline-secondary">
+                        Cancelar
+                    </a>
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Crear empleado
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

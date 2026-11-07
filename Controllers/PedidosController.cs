@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using YaVa.Data;
@@ -16,34 +17,38 @@ public class PedidosController : Controller
         _db = db;
         _avisador = avisador;
     }
-
+    [Authorize(Roles = "Administrador,Caja,Cocina,Mostrador")]
     public async Task<IActionResult> Index()
     {
         return View(await PedidosEnCursoAsync());
     }
-
+    [Authorize(Roles = "Administrador,Caja,Cocina,Mostrador")]
     public async Task<IActionResult> Tablero()
     {
         return PartialView("_Tablero", await PedidosEnCursoAsync());
     }
 
+    [Authorize(Roles = "Administrador,Caja")]
     public async Task<IActionResult> Create()
     {
-        if (!User.IsInRole(SeedDatos.RolCaja))
+        if (!User.IsInRole("Administrador") &&
+            !User.IsInRole("Caja"))
         {
-            return StatusCode(StatusCodes.Status403Forbidden);
+            return Forbid();
         }
 
         return View(await ArmarFormularioAsync());
     }
 
+    [Authorize(Roles = "Administrador,Caja")]
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(NuevoPedidoViewModel vm)
     {
-        if (!User.IsInRole(SeedDatos.RolCaja))
+        if (!User.IsInRole("Administrador") &&
+            !User.IsInRole("Caja"))
         {
-            return StatusCode(StatusCodes.Status403Forbidden);
+            return Forbid();
         }
 
         var elegidas = vm.Lineas.Where(l => l.Cantidad > 0).ToList();
@@ -92,23 +97,25 @@ public class PedidosController : Controller
 
         return RedirectToAction(nameof(Index));
     }
-
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Administrador,Cocina,Mostrador")]
     public async Task<IActionResult> CambiarEstado(int id, EstadoPedido estado)
     {
-        var rolRequerido = RolQuePuedePasarA(estado);
-        if (rolRequerido is null)
+        var rolNecesario = RolQuePuedePasarA(estado);
+
+        if (rolNecesario is null)
         {
             return BadRequest();
         }
 
-        if (!User.IsInRole(rolRequerido))
+        if (!User.IsInRole("Administrador") && !User.IsInRole(rolNecesario))
         {
-            return StatusCode(StatusCodes.Status403Forbidden);
+            return Forbid();
         }
-
+        
         var pedido = await _db.Pedidos.FindAsync(id);
+        
         if (pedido is null)
         {
             return NotFound();

@@ -1,0 +1,63 @@
+
+@model YaVa.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Iniciar sesión";
+}
+
+<link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+
+<div class="login-container">
+    <div class="login-card">
+
+        <div class="login-header">
+            <span class="login-icon">✦</span>
+            <h1>Bienvenido a YaVa</h1>
+            <p>Ingresá tus datos para continuar</p>
+        </div>
+
+        <form asp-controller="Cuenta"
+              asp-action="Login"
+              method="post">
+
+            @Html.AntiForgeryToken()
+
+            <div asp-validation-summary="ModelOnly"
+                 class="login-error"></div>
+
+            <div class="login-field">
+                <label asp-for="Usuario">Usuario</label>
+                <input asp-for="Usuario"
+                       class="login-input"
+                       placeholder="Ingresá tu usuario"
+                       autocomplete="username" />
+                <span asp-validation-for="Usuario"
+                      class="login-error"></span>
+            </div>
+
+            <div class="login-field">
+                <label asp-for="Password">Contraseña</label>
+                <input asp-for="Password"
+                       type="password"
+                       class="login-input"
+                       placeholder="Ingresá tu contraseña"
+                       autocomplete="current-password" />
+                <span asp-validation-for="Password"
+                      class="login-error"></span>
+            </div>
+
+            <button type="submit" class="login-button">
+                Iniciar sesión
+            </button>
+        </form>
+
+        <div class="login-footer">
+            Sistema de gestión de pedidos
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
