@@ -6,11 +6,19 @@ using YaVa.Models;
 namespace YaVa.Services;
 
 /// <summary>
-/// Avisa que un pedido cambió. Hoy le llega a todos los navegadores conectados.
-/// Con el login, conviene mandarlo solo al grupo del puesto que lo necesita.
+/// Avisa que un pedido cambió, usando los grupos de SignalR (uno por rol).
+/// Manda dos mensajes distintos:
+///  - "TableroActualizado": a todos los puestos, para que refresquen su tablero.
+///  - "PedidoActualizado": solo al puesto que tiene que actuar, para el aviso destacado.
 /// </summary>
 public class AvisadorPedidos
 {
+    private static readonly string[] TodosLosRoles =
+    {
+        SeedDatos.RolCaja,
+        SeedDatos.RolCocina,
+        SeedDatos.RolMostrador
+    };
     private readonly IHubContext<PedidosHub> _hub;
 
     public AvisadorPedidos(IHubContext<PedidosHub> hub)

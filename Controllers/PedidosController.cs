@@ -31,6 +31,12 @@ public class PedidosController : Controller
     [Authorize(Roles = "Administrador,Caja")]
     public async Task<IActionResult> Create()
     {
+        if (!User.IsInRole("Administrador") &&
+            !User.IsInRole("Caja"))
+        {
+            return Forbid();
+        }
+
         return View(await ArmarFormularioAsync());
     }
 
@@ -39,6 +45,12 @@ public class PedidosController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(NuevoPedidoViewModel vm)
     {
+        if (!User.IsInRole("Administrador") &&
+            !User.IsInRole("Caja"))
+        {
+            return Forbid();
+        }
+
         var elegidas = vm.Lineas.Where(l => l.Cantidad > 0).ToList();
         if (elegidas.Count == 0)
         {
@@ -58,7 +70,7 @@ public class PedidosController : Controller
         var pedido = new Pedido
         {
             Mesa = vm.Mesa,
-            CreadoPor = "",
+            CreadoPor = User.Identity?.Name ?? "",
             CreadoEn = DateTime.Now,
             Estado = EstadoPedido.Pendiente
         };

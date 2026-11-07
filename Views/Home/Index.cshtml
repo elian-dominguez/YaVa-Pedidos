@@ -1,4 +1,3 @@
-
 @{
     ViewData["Title"] = "Inicio";
 }
@@ -30,11 +29,14 @@
                     Ver tablero de pedidos →
                 </a>
 
-                <a asp-controller="Pedidos"
-                   asp-action="Create"
-                   class="btn home-btn-outline px-4">
-                    + Crear pedido
-                </a>
+                @if (User.IsInRole(YaVa.Data.SeedDatos.RolCaja))
+                {
+                    <a asp-controller="Pedidos"
+                       asp-action="Create"
+                       class="btn home-btn-outline px-4">
+                        + Crear pedido
+                    </a>
+                }
             </div>
         </div>
 
