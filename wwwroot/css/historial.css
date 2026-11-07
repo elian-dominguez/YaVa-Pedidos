@@ -1,0 +1,122 @@
+.history-page {
+    padding-bottom: 30px;
+}
+
+.history-eyebrow {
+    display: inline-block;
+    color: #b7673d;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+    margin-bottom: 10px;
+}
+
+.history-title {
+    color: #29251f;
+    font-size: clamp(28px, 3vw, 38px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+}
+
+.history-subtitle {
+    color: #82796e;
+    font-size: 15px;
+}
+
+.history-stat {
+    background: #fff;
+    border: 1px solid #e8ded0;
+    border-radius: 16px;
+    padding: 23px 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    height: 100%;
+    box-shadow: 0 5px 20px rgba(41, 37, 31, 0.035);
+}
+
+.history-stat-label {
+    color: #8a7b6b;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
+}
+
+.history-stat strong {
+    color: #29251f;
+    font-size: 34px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.history-stat small {
+    color: #82796e;
+    font-size: 12px;
+}
+
+.history-table-card {
+    overflow: hidden;
+    border-radius: 16px;
+}
+
+.history-table-heading {
+    padding: 24px 26px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 1px solid #e8ded0;
+}
+
+.history-count {
+    background: #f5ebdd;
+    color: #796553;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.history-table {
+    min-width: 720px;
+}
+
+.history-table thead th {
+    background: #faf6f0;
+    color: #8a7b6b;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 17px 25px;
+    border-bottom: 1px solid #e8ded0;
+}
+
+.history-table tbody td {
+    padding: 19px 25px;
+    vertical-align: middle;
+    color: #302b25;
+}
+
+.history-id {
+    color: #9a8d80;
+    font-weight: 700;
+}
+
+.history-empty {
+    padding: 48px 26px;
+    text-align: center;
+}
+
+.history-empty h3 {
+    color: #29251f;
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.history-empty p {
+    color: #82796e;
+    margin: 0;
+}

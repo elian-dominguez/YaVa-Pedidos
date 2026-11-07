@@ -15,6 +15,8 @@ public class Pedido
 
     public DateTime CreadoEn { get; set; } = DateTime.Now;
 
+    public DateTime? EntregadoEn { get; set; }
+
     [StringLength(256)]
     public string CreadoPor { get; set; } = "";
 

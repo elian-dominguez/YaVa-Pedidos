@@ -29,6 +29,12 @@
                     Ver tablero de pedidos →
                 </a>
 
+                <a asp-controller="Pedidos"
+                   asp-action="Historial"
+                   class="btn home-btn-outline px-4">
+                    Historial de entregas
+                </a>
+
                 @if (User.IsInRole(YaVa.Data.SeedDatos.RolCaja))
                 {
                     <a asp-controller="Pedidos"

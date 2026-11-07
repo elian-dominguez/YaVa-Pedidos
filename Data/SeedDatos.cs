@@ -16,6 +16,20 @@ public static class SeedDatos
         var db = servicios.GetRequiredService<ApplicationDbContext>();
         await db.Database.MigrateAsync();
 
+        var entregadosSinFecha = await db.Pedidos
+            .Where(p => p.Estado == EstadoPedido.Entregado && p.EntregadoEn == null)
+            .ToListAsync();
+
+        if (entregadosSinFecha.Count > 0)
+        {
+            foreach (var pedido in entregadosSinFecha)
+            {
+                pedido.EntregadoEn = pedido.CreadoEn;
+            }
+
+            await db.SaveChangesAsync();
+        }
+
         if (!await db.Productos.AnyAsync())
         {
             db.Productos.AddRange(
