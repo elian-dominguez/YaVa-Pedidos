@@ -24,7 +24,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
 builder.Services.AddSignalR();
-builder.Services.AddScoped<AvisadorPedidos>();
+builder.Services.AddScoped<NotificadorPedidos>();
 
 var app = builder.Build();
 

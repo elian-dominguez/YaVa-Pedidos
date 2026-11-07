@@ -9,10 +9,10 @@ public class NuevoPedidoViewModel
     [Display(Name = "Mesa")]
     public string Mesa { get; set; } = "";
 
-    public List<LineaViewModel> Lineas { get; set; } = new();
+    public List<ItemViewModel> Items { get; set; } = new();
 }
 
-public class LineaViewModel
+public class ItemViewModel
 {
     public int ProductoId { get; set; }
 

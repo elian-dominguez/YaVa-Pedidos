@@ -9,12 +9,12 @@ namespace YaVa.Controllers;
 public class PedidosController : Controller
 {
     private readonly ApplicationDbContext _db;
-    private readonly AvisadorPedidos _avisador;
+    private readonly NotificadorPedidos _notificador;
 
-    public PedidosController(ApplicationDbContext db, AvisadorPedidos avisador)
+    public PedidosController(ApplicationDbContext db, NotificadorPedidos notificador)
     {
         _db = db;
-        _avisador = avisador;
+        _notificador = notificador;
     }
 
     public async Task<IActionResult> Index()
@@ -46,8 +46,8 @@ public class PedidosController : Controller
             return StatusCode(StatusCodes.Status403Forbidden);
         }
 
-        var elegidas = vm.Lineas.Where(l => l.Cantidad > 0).ToList();
-        if (elegidas.Count == 0)
+        var elegidos = vm.Items.Where(i => i.Cantidad > 0).ToList();
+        if (elegidos.Count == 0)
         {
             ModelState.AddModelError(string.Empty, "Elegí al menos un producto.");
         }
@@ -57,7 +57,7 @@ public class PedidosController : Controller
             return View(await ArmarFormularioAsync(vm));
         }
 
-        var ids = elegidas.Select(l => l.ProductoId).ToList();
+        var ids = elegidos.Select(i => i.ProductoId).ToList();
         var productos = await _db.Productos
             .Where(p => ids.Contains(p.Id) && p.Activo)
             .ToDictionaryAsync(p => p.Id);
@@ -70,9 +70,9 @@ public class PedidosController : Controller
             Estado = EstadoPedido.Pendiente
         };
 
-        foreach (var linea in elegidas)
+        foreach (var item in elegidos)
         {
-            if (!productos.TryGetValue(linea.ProductoId, out var producto))
+            if (!productos.TryGetValue(item.ProductoId, out var producto))
             {
                 continue;
             }
@@ -80,7 +80,7 @@ public class PedidosController : Controller
             pedido.Items.Add(new PedidoItem
             {
                 ProductoId = producto.Id,
-                Cantidad = linea.Cantidad,
+                Cantidad = item.Cantidad,
                 PrecioUnitario = producto.Precio
             });
         }
@@ -88,7 +88,7 @@ public class PedidosController : Controller
         _db.Pedidos.Add(pedido);
         await _db.SaveChangesAsync();
 
-        await _avisador.AvisarAsync(pedido);
+        await _notificador.NotificarAsync(pedido);
 
         return RedirectToAction(nameof(Index));
     }
@@ -122,7 +122,7 @@ public class PedidosController : Controller
         pedido.Estado = estado;
         await _db.SaveChangesAsync();
 
-        await _avisador.AvisarAsync(pedido);
+        await _notificador.NotificarAsync(pedido);
 
         return RedirectToAction(nameof(Index));
     }
@@ -140,13 +140,13 @@ public class PedidosController : Controller
     private async Task<NuevoPedidoViewModel> ArmarFormularioAsync(NuevoPedidoViewModel? vm = null)
     {
         var productos = await _db.Productos.Where(p => p.Activo).OrderBy(p => p.Nombre).ToListAsync();
-        var cantidades = vm?.Lineas.ToDictionary(l => l.ProductoId, l => l.Cantidad)
+        var cantidades = vm?.Items.ToDictionary(i => i.ProductoId, i => i.Cantidad)
                          ?? new Dictionary<int, int>();
 
         return new NuevoPedidoViewModel
         {
             Mesa = vm?.Mesa ?? "",
-            Lineas = productos.Select(p => new LineaViewModel
+            Items = productos.Select(p => new ItemViewModel
             {
                 ProductoId = p.Id,
                 Nombre = p.Nombre,
