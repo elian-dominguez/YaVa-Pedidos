@@ -22,8 +22,7 @@ public static class SeedUsuariosPrueba
             if (string.IsNullOrWhiteSpace(usuario) ||
                 string.IsNullOrWhiteSpace(password))
             {
-                throw new InvalidOperationException(
-                    $"Faltan credenciales para {rol}.");
+                continue;
             }
 
             var empleado = await userManager.FindByNameAsync(usuario);
