@@ -20,7 +20,8 @@ async function refrescarTablero() {
 function mostrarAviso(pedido) {
     const aviso = document.createElement("div");
     aviso.className = "alert alert-info py-2";
-    aviso.textContent = "Mesa " + pedido.mesa + ": " + pedido.estado;
+    const mesa = String(pedido.mesa || "").replace(/^mesa\s+/i, "").trim();
+    aviso.textContent = "Mesa " + mesa + ": " + pedido.estado;
     avisos.prepend(aviso);
     setTimeout(() => aviso.remove(), 5000);
 }

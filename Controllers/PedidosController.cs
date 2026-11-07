@@ -69,7 +69,7 @@ public class PedidosController : Controller
 
         var pedido = new Pedido
         {
-            Mesa = vm.Mesa,
+            Mesa = NormalizarMesa(vm.Mesa),
             CreadoPor = User.Identity?.Name ?? "",
             CreadoEn = DateTime.Now,
             Estado = EstadoPedido.Pendiente
@@ -180,6 +180,18 @@ public class PedidosController : Controller
                 Cantidad = cantidades.TryGetValue(p.Id, out var c) ? c : 0
             }).ToList()
         };
+    }
+
+    private static string NormalizarMesa(string mesa)
+    {
+        mesa = mesa.Trim();
+
+        if (mesa.StartsWith("Mesa ", StringComparison.OrdinalIgnoreCase))
+        {
+            mesa = mesa["Mesa ".Length..].Trim();
+        }
+
+        return mesa;
     }
 
     public static EstadoPedido? SiguienteEstado(EstadoPedido actual) => actual switch

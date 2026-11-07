@@ -82,6 +82,9 @@
                         var rolNecesario = siguiente is not null
                             ? PedidosController.RolQuePuedePasarA(siguiente.Value)
                             : null;
+                        var mesa = pedido.Mesa.StartsWith("Mesa ", StringComparison.OrdinalIgnoreCase)
+                            ? pedido.Mesa["Mesa ".Length..].Trim()
+                            : pedido.Mesa;
 
                         <article class="orders-ticket" data-pedido="@pedido.Id">
 
@@ -89,7 +92,7 @@
                             <div class="orders-ticket-header">
                                 <div>
                                     <span class="orders-ticket-label">PEDIDO #@pedido.Id</span>
-                                    <h3>Mesa @pedido.Mesa</h3>
+                                    <h3>Mesa @mesa</h3>
                                 </div>
 
                                 <span class="orders-ticket-time">
