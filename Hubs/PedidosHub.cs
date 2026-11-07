@@ -1,26 +1,47 @@
+
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
 using YaVa.Data;
 
 namespace YaVa.Hubs;
 
+[Authorize(Roles = "Administrador,Caja,Cocina,Mostrador")]
 public class PedidosHub : Hub
 {
-    private static readonly string[] Roles =
+    private readonly UserManager<IdentityUser> _userManager;
+
+    public PedidosHub(UserManager<IdentityUser> userManager)
     {
-        SeedDatos.RolCaja,
-        SeedDatos.RolCocina,
-        SeedDatos.RolMostrador
-    };
+        _userManager = userManager;
+    }
 
     public override async Task OnConnectedAsync()
     {
-        // El grupo lo decide el servidor a partir del rol del usuario autenticado.
-        // El navegador no puede elegirlo: este Hub no expone ningún método para unirse a un grupo.
-        // Al desconectarse, SignalR saca a la conexión de sus grupos automáticamente.
-        foreach (var rol in Roles)
+        var usuario = await _userManager.GetUserAsync(Context.User);
+
+        if (usuario == null ||
+            await _userManager.IsLockedOutAsync(usuario))
+        {
+            Context.Abort();
+            return;
+        }
+
+        string[] roles =
+        {
+            "Administrador",
+            "Caja",
+            "Cocina",
+            "Mostrador"
+        };
+
+        foreach (var rol in roles)
         {
             if (Context.User?.IsInRole(rol) == true)
-                await Groups.AddToGroupAsync(Context.ConnectionId, rol);
+            {
+                await Groups.AddToGroupAsync(
+                    Context.ConnectionId, rol);
+            }
         }
 
         await base.OnConnectedAsync();

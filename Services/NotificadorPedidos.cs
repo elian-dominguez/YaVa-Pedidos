@@ -8,8 +8,8 @@ namespace YaVa.Services;
 /// <summary>
 /// Notifica que un pedido cambió, usando los grupos de SignalR (uno por rol).
 /// Manda dos mensajes distintos:
-///  - "TableroActualizado": a todos los puestos, para que refresquen su tablero.
-///  - "PedidoActualizado": solo al puesto que tiene que actuar, para el aviso destacado.
+///  - "PedidoActualizado": a todos los puestos, para que refresquen su tablero.
+///  - "NotificacionPedido": solo al puesto que tiene que actuar, para el aviso destacado.
 /// </summary>
 public class NotificadorPedidos
 {
@@ -35,9 +35,12 @@ public class NotificadorPedidos
             Estado = pedido.Estado.Texto()
         };
 
-        await _hub.Clients.Groups(TodosLosRoles).SendAsync("TableroActualizado");
+        await _hub.Clients.All.SendAsync("PedidoActualizado", aviso);
 
-        await _hub.Clients.Groups(GruposQueNotificar(pedido.Estado)).SendAsync("PedidoActualizado", aviso);
+        var grupos = GruposQueNotificar(pedido.Estado);
+
+        await _hub.Clients.Groups(grupos)
+            .SendAsync("NotificacionPedido", aviso);
     }
 
     public static string[] GruposQueNotificar(EstadoPedido estado) => estado switch
