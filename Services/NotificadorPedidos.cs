@@ -13,12 +13,6 @@ namespace YaVa.Services;
 /// </summary>
 public class NotificadorPedidos
 {
-    private static readonly string[] TodosLosRoles =
-    {
-        SeedDatos.RolCaja,
-        SeedDatos.RolCocina,
-        SeedDatos.RolMostrador
-    };
     private readonly IHubContext<PedidosHub> _hub;
 
     public NotificadorPedidos(IHubContext<PedidosHub> hub)
@@ -39,6 +33,11 @@ public class NotificadorPedidos
 
         var grupos = GruposQueNotificar(pedido.Estado);
 
+        if (grupos.Length == 0)
+        {
+            return;
+        }
+
         await _hub.Clients.Groups(grupos)
             .SendAsync("NotificacionPedido", aviso);
     }
@@ -46,9 +45,7 @@ public class NotificadorPedidos
     public static string[] GruposQueNotificar(EstadoPedido estado) => estado switch
     {
         EstadoPedido.Pendiente => new[] { SeedDatos.RolCocina },
-        EstadoPedido.EnPreparacion => new[] { SeedDatos.RolCaja },
-        EstadoPedido.Listo => new[] { SeedDatos.RolCaja, SeedDatos.RolMostrador },
-        EstadoPedido.Entregado => new[] { SeedDatos.RolCaja, SeedDatos.RolCocina },
+        EstadoPedido.Listo => new[] { SeedDatos.RolMostrador },
         _ => Array.Empty<string>()
     };
 }

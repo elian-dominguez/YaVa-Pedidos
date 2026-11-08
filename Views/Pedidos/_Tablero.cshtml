@@ -3,11 +3,11 @@
 @model List<Pedido>
 
 @{
-    var columnas = new (EstadoPedido Estado, string Titulo, string Color, string Clase, string Descripcion)[]
+    var columnas = new (EstadoPedido Estado, string Titulo, string TituloCorto, string Color, string Clase, string Descripcion)[]
     {
-        (EstadoPedido.Pendiente, "Pendientes", "secondary", "pending", "Esperando para comenzar"),
-        (EstadoPedido.EnPreparacion, "En preparación", "warning", "preparing", "Pedidos en cocina"),
-        (EstadoPedido.Listo, "Listos para entregar", "success", "ready", "Esperando entrega")
+        (EstadoPedido.Pendiente, "Pendientes", "Pendientes", "secondary", "pending", "Esperando para comenzar"),
+        (EstadoPedido.EnPreparacion, "En preparación", "En preparación", "warning", "preparing", "Pedidos en cocina"),
+        (EstadoPedido.Listo, "Listos para entregar", "Listos", "success", "ready", "Esperando entrega")
     };
 
     string TextoBoton(EstadoPedido siguiente) => siguiente switch
@@ -19,24 +19,26 @@
     };
 }
 
-<div class="row g-4 orders-board">
+<div class="row g-3 orders-board">
 
     @foreach (var columna in columnas)
     {
         var pedidos = Model.Where(p => p.Estado == columna.Estado).ToList();
 
-        <div class="col-lg-4">
+        <div class="col-12 col-md-4">
 
             <section class="orders-column orders-column-@columna.Clase">
 
-                <!-- Encabezado de columna -->
                 <div class="orders-column-header">
 
                     <div class="orders-column-heading">
                         <span class="orders-column-indicator"></span>
 
                         <div>
-                            <h2>@columna.Titulo</h2>
+                            <h2>
+                                <span class="orders-column-title-full">@columna.Titulo</span>
+                                <span class="orders-column-title-short">@columna.TituloCorto</span>
+                            </h2>
                             <p>@columna.Descripcion</p>
                         </div>
                     </div>
@@ -47,7 +49,6 @@
 
                 </div>
 
-                <!-- Contenido -->
                 <div class="orders-column-body">
 
                     @if (pedidos.Count == 0)
@@ -88,7 +89,6 @@
 
                         <article class="orders-ticket" data-pedido="@pedido.Id">
 
-                            <!-- Encabezado del pedido -->
                             <div class="orders-ticket-header">
                                 <div>
                                     <span class="orders-ticket-label">PEDIDO #@pedido.Id</span>
@@ -100,7 +100,6 @@
                                 </span>
                             </div>
 
-                            <!-- Productos -->
                             <div class="orders-ticket-items">
 
                                 @foreach (var item in pedido.Items)
@@ -119,7 +118,6 @@
 
                             </div>
 
-                            <!-- Total y acción -->
                             <div class="orders-ticket-footer">
 
                                 <div class="orders-ticket-total">

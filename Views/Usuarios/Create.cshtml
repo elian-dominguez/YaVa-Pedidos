@@ -1,94 +1,84 @@
-﻿
-@model YaVa.Models.CrearUsuarioViewModel
+﻿@model YaVa.Models.CrearUsuarioViewModel
 
 @{
     ViewData["Title"] = "Nuevo empleado";
 }
 
-<div class="container mt-5" style="max-width: 650px;">
+@section Styles {
+    <link rel="stylesheet" href="~/css/usuarios.css" asp-append-version="true" />
+}
+
+<section class="users-page">
+
+    <a asp-controller="Usuarios" asp-action="Index" class="users-back-link">
+        ← Volver a usuarios
+    </a>
 
     <div class="mb-4">
-        <h2>Nuevo empleado</h2>
-        <p class="text-muted">
+        <span class="users-eyebrow">ADMINISTRACIÓN / EQUIPO</span>
+        <h1 class="users-title">Nuevo empleado</h1>
+        <p class="users-subtitle mb-0">
             Registrá un nuevo usuario para YaVa.
         </p>
     </div>
 
-    <div class="card shadow-sm border-0">
-        <div class="card-body p-4">
+    <div class="card users-form-card">
+        <div class="users-form-body">
 
-            <form asp-controller="Usuarios"
-                  asp-action="Create"
-                  method="post">
-
+            <form asp-controller="Usuarios" asp-action="Create" method="post">
                 @Html.AntiForgeryToken()
 
-                <div asp-validation-summary="ModelOnly"
-                     class="text-danger mb-3"></div>
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
                 <div class="mb-3">
-                    <label asp-for="NombreUsuario"
-                           class="form-label">
+                    <label asp-for="NombreUsuario" class="form-label">
                         Nombre de usuario
                     </label>
-
                     <input asp-for="NombreUsuario"
                            class="form-control"
                            autocomplete="off" />
-
-                    <span asp-validation-for="NombreUsuario"
-                          class="text-danger"></span>
+                    <span asp-validation-for="NombreUsuario" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="Password"
-                           class="form-label">
+                    <label asp-for="Password" class="form-label">
                         Contraseña
                     </label>
-
                     <input asp-for="Password"
                            class="form-control"
                            autocomplete="new-password" />
-
-                    <span asp-validation-for="Password"
-                          class="text-danger"></span>
+                    <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
 
                 <div class="mb-4">
-                    <label asp-for="Rol"
-                           class="form-label">
+                    <label asp-for="Rol" class="form-label">
                         Puesto de trabajo
                     </label>
-
                     <select asp-for="Rol" class="form-select">
                         <option value="">Seleccionar puesto</option>
                         <option value="Caja">Caja</option>
                         <option value="Cocina">Cocina</option>
                         <option value="Mostrador">Mostrador</option>
                     </select>
-
-                    <span asp-validation-for="Rol"
-                          class="text-danger"></span>
+                    <span asp-validation-for="Rol" class="text-danger"></span>
                 </div>
 
-                <div class="d-flex justify-content-between">
+                <div class="users-form-actions">
                     <a asp-controller="Usuarios"
                        asp-action="Index"
-                       class="btn btn-outline-secondary">
+                       class="btn users-cancel-btn">
                         Cancelar
                     </a>
-
-                    <button type="submit"
-                            class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary px-4">
                         Crear empleado
                     </button>
                 </div>
-
             </form>
 
         </div>
     </div>
-</div>
+
+</section>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
