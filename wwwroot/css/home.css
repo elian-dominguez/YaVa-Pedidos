@@ -137,16 +137,59 @@
     padding: 28px 32px;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1199px) {
     .home-hero {
         padding: 32px 24px;
+        border-radius: 16px;
+    }
+
+    .home-title {
+        font-size: clamp(26px, 4vw, 36px);
+    }
+
+    .home-description {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .home-role-card .card-body {
+        padding: 16px !important;
+    }
+
+    .home-role-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 15px;
+        border-radius: 12px;
+    }
+
+    .home-role-card h3 {
+        margin-top: 14px !important;
+        font-size: 16px;
     }
 
     .home-role-description {
         min-height: auto;
+        font-size: 13px;
+        line-height: 1.5;
+        margin-bottom: 8px;
     }
 
     .home-bottom-banner {
-        padding: 24px;
+        padding: 18px 20px;
+    }
+}
+
+@media (max-width: 767px) {
+    .home-hero {
+        padding: 24px 18px;
+    }
+
+    .home-hero .btn {
+        width: 100%;
+    }
+
+    .home-bottom-banner .btn {
+        width: 100%;
     }
 }

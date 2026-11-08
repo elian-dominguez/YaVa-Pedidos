@@ -1,6 +1,6 @@
 ﻿
 .pedido-create {
-    padding: 34px 0 65px;
+    padding: 0 0 20px;
 }
 
 .pedido-volver {
@@ -186,22 +186,51 @@
         border-radius: 9px;
     }
 
-@media (max-width: 991px) {
+@media (max-width: 1199px) {
+    .pedido-volver {
+        margin-bottom: 16px;
+    }
+
+    .pedido-encabezado {
+        margin-bottom: 18px;
+    }
+
+    .pedido-encabezado h1 {
+        font-size: clamp(24px, 4vw, 32px);
+        margin: 8px 0 6px;
+    }
+
+    .pedido-panel-header,
+    .pedido-panel-body,
     .pedido-resumen {
-        margin-top: 0;
+        padding: 16px 18px;
+    }
+
+    .pedido-icono {
+        width: 38px;
+        height: 38px;
+        font-size: 13px;
+    }
+
+    .pedido-panel-header h2,
+    .pedido-resumen h2 {
+        font-size: 16px;
+    }
+
+    .pedido-tabla thead th,
+    .pedido-tabla tbody td {
+        padding: 12px 14px;
+    }
+
+    .pedido-resumen-acciones {
+        margin-top: 16px;
     }
 }
 
 @media (max-width: 576px) {
     .pedido-tabla thead th,
     .pedido-tabla tbody td {
-        padding: 12px 10px;
-    }
-
-    .pedido-panel-header,
-    .pedido-panel-body,
-    .pedido-resumen {
-        padding: 20px;
+        padding: 10px 8px;
     }
 }
 

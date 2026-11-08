@@ -1,0 +1,216 @@
+.users-page {
+    padding-bottom: 30px;
+}
+
+.users-eyebrow {
+    display: inline-block;
+    color: #b7673d;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+    margin-bottom: 10px;
+}
+
+.users-title {
+    color: #29251f;
+    font-size: clamp(28px, 3vw, 38px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+}
+
+.users-subtitle {
+    color: #82796e;
+    font-size: 15px;
+}
+
+.users-table-card {
+    overflow: hidden;
+    border-radius: 16px;
+}
+
+.users-table-heading {
+    padding: 24px 26px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 1px solid #e8ded0;
+}
+
+.users-count {
+    background: #f5ebdd;
+    color: #796553;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.users-table {
+    min-width: 640px;
+}
+
+.users-table thead th {
+    background: #faf6f0;
+    color: #8a7b6b;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 17px 25px;
+    border-bottom: 1px solid #e8ded0;
+}
+
+.users-table tbody td {
+    padding: 19px 25px;
+    vertical-align: middle;
+}
+
+.users-name {
+    color: #29251f;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.users-role {
+    color: #40382f;
+    font-weight: 600;
+}
+
+.users-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.users-status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.users-status-active {
+    background: #e6eadf;
+    color: #627256;
+}
+
+.users-status-inactive {
+    background: #f4e8e0;
+    color: #a85e3b;
+}
+
+.users-edit-btn {
+    background: #f5ebdd;
+    color: #735c49;
+    border: 1px solid #e8ded0;
+}
+
+.users-edit-btn:hover {
+    background: #e9d9c5;
+    color: #40382f;
+}
+
+.users-disable-btn {
+    background: #fff;
+    color: #a85e3b;
+    border: 1px solid #e2c6b5;
+}
+
+.users-disable-btn:hover {
+    background: #a85e3b;
+    color: white;
+    border-color: #a85e3b;
+}
+
+.users-enable-btn {
+    background: #fff;
+    color: #627256;
+    border: 1px solid #bdcbb5;
+}
+
+.users-enable-btn:hover {
+    background: #627256;
+    color: white;
+    border-color: #627256;
+}
+
+.users-back-link {
+    display: inline-block;
+    color: #9c6243;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    margin-bottom: 26px;
+}
+
+.users-back-link:hover {
+    color: #713d26;
+    text-decoration: underline;
+}
+
+.users-form-card {
+    overflow: hidden;
+    max-width: 640px;
+}
+
+.users-form-body {
+    padding: 32px;
+}
+
+.users-form-actions {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 8px;
+}
+
+.users-cancel-btn {
+    background: #f5ebdd;
+    color: #735c49;
+    border: 1px solid #e8ded0;
+}
+
+.users-cancel-btn:hover {
+    background: #e9d9c5;
+    color: #40382f;
+}
+
+@media (max-width: 1199px) {
+    .users-table-heading {
+        padding: 16px 18px;
+    }
+
+    .users-table thead th,
+    .users-table tbody td {
+        padding: 12px 16px;
+    }
+
+    .users-form-body {
+        padding: 20px;
+    }
+
+    .users-back-link {
+        margin-bottom: 16px;
+    }
+
+    .users-title {
+        font-size: clamp(24px, 3vw, 32px);
+    }
+}
+
+@media (max-width: 767px) {
+    .users-header .btn {
+        width: 100%;
+    }
+
+    .users-table-heading {
+        flex-wrap: wrap;
+    }
+}

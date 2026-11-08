@@ -106,8 +106,21 @@
     color: #91877b;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 991px) {
+    .login-container {
+        min-height: auto;
+        padding: 16px 0 24px;
+    }
+
     .login-card {
-        padding: 30px 22px;
+        padding: 28px 22px;
+    }
+
+    .login-header {
+        margin-bottom: 22px;
+    }
+
+    .login-header h1 {
+        font-size: 22px;
     }
 }

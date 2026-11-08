@@ -33,7 +33,7 @@
             </div>
         </div>
 
-        @if (User.IsInRole(YaVa.Data.SeedDatos.RolCaja))
+        @if (User.IsInRole("Administrador") || User.IsInRole(YaVa.Data.SeedDatos.RolCaja))
         {
             <a asp-controller="Pedidos"
                asp-action="Create"

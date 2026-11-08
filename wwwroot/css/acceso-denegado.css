@@ -45,6 +45,28 @@
     margin-bottom: 28px;
 }
 
+@media (max-width: 991px) {
+    .acceso-container {
+        min-height: auto;
+        padding: 16px 0 24px;
+    }
+
+    .acceso-card {
+        padding: 28px 22px;
+    }
+
+    .acceso-icono {
+        width: 52px;
+        height: 52px;
+        font-size: 26px;
+        margin-bottom: 16px;
+    }
+
+    .acceso-card h1 {
+        font-size: 22px;
+    }
+}
+
 .acceso-boton {
     background: #b9654e;
     color: white;

@@ -35,12 +35,12 @@
                     Historial de entregas
                 </a>
 
-                @if (User.IsInRole(YaVa.Data.SeedDatos.RolCaja))
+                @if (User.IsInRole("Administrador") || User.IsInRole(YaVa.Data.SeedDatos.RolCaja))
                 {
                     <a asp-controller="Pedidos"
                        asp-action="Create"
                        class="btn home-btn-outline px-4">
-                        + Crear pedido
+                        + Nuevo pedido
                     </a>
                 }
             </div>
@@ -80,11 +80,14 @@
                     y asigná la mesa correspondiente.
                 </p>
 
-                <a asp-controller="Pedidos"
-                   asp-action="Create"
-                   class="home-role-link">
-                    Nuevo pedido →
-                </a>
+                @if (User.IsInRole("Administrador") || User.IsInRole(YaVa.Data.SeedDatos.RolCaja))
+                {
+                    <a asp-controller="Pedidos"
+                       asp-action="Create"
+                       class="home-role-link">
+                        Nuevo pedido →
+                    </a>
+                }
             </div>
         </div>
     </div>
@@ -135,20 +138,23 @@
 
 </div>
 
-<section class="home-bottom-banner">
-    <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
-        <div>
-            <span class="home-section-label">ADMINISTRACIÓN</span>
-            <h2 class="h5 mb-1">Mantené tu carta actualizada</h2>
-            <p class="mb-0 text-muted">
-                Gestioná los productos, precios y disponibilidad del restaurante.
-            </p>
-        </div>
+@if (User.IsInRole("Administrador"))
+{
+    <section class="home-bottom-banner">
+        <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+            <div>
+                <span class="home-section-label">ADMINISTRACIÓN</span>
+                <h2 class="h5 mb-1">Mantené tu carta actualizada</h2>
+                <p class="mb-0 text-muted">
+                    Gestioná los productos, precios y disponibilidad del restaurante.
+                </p>
+            </div>
 
-        <a asp-controller="Productos"
-           asp-action="Index"
-           class="btn btn-primary">
-            Administrar productos →
-        </a>
-    </div>
-</section>
+            <a asp-controller="Productos"
+               asp-action="Index"
+               class="btn btn-primary">
+                Administrar productos →
+            </a>
+        </div>
+    </section>
+}

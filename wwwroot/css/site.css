@@ -280,22 +280,56 @@ h1, h2, h3, h4, h5, h6 {
 
 /* RESPONSIVE */
 
+@media (max-width: 1199px) {
+    .yava-content {
+        padding-top: 20px;
+        padding-bottom: 36px;
+    }
+
+    .card {
+        border-radius: 12px;
+    }
+}
+
 @media (max-width: 991px) {
     .yava-navbar {
         min-height: 72px;
     }
 
         .yava-navbar .navbar-collapse {
-            padding-top: 18px;
+            padding: 12px 0 20px;
         }
 
-    .yava-nav-button {
-        margin-top: 8px;
-    }
+        .yava-navbar .navbar-nav {
+            width: 100%;
+            gap: 4px;
+        }
 
-    .yava-content {
-        padding-top: 24px;
-    }
+        .yava-navbar .nav-item {
+            width: 100%;
+        }
+
+        .yava-navbar .yava-nav-link,
+        .yava-navbar .yava-nav-button {
+            display: block;
+            width: 100%;
+            text-align: left;
+            margin: 0;
+        }
+
+        .yava-navbar .yava-nav-button {
+            margin-top: 8px;
+            margin-bottom: 4px;
+        }
+
+        .yava-navbar form {
+            width: 100%;
+        }
+
+        .yava-navbar .yava-user {
+            display: block;
+            padding: 10px 16px 6px;
+        }
 }
 
 @media (max-width: 576px) {

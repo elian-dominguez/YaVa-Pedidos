@@ -77,7 +77,15 @@
                             </thead>
 
                             <tbody>
-                                
+                                @if (Model.Items.Count == 0)
+                                {
+                                    <tr>
+                                        <td colspan="3" class="text-center py-4 text-muted">
+                                            No hay productos activos en la carta.
+                                        </td>
+                                    </tr>
+                                }
+
                                 @for (var i = 0; i < Model.Items.Count; i++)
                                 {
                                     <tr class="pedido-fila"

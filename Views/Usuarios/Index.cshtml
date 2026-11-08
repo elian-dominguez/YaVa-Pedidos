@@ -1,21 +1,29 @@
-﻿
-@model List<YaVa.Models.UsuarioListadoViewModel>
+﻿@model List<YaVa.Models.UsuarioListadoViewModel>
 
 @{
-    ViewData["Title"] = "Gestión de usuarios";
+    ViewData["Title"] = "Usuarios";
 }
 
-<div class="container mt-4">
+@section Styles {
+    <link rel="stylesheet" href="~/css/usuarios.css" asp-append-version="true" />
+}
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+<section class="users-page">
+
+    <div class="users-header d-flex flex-column flex-md-row
+                justify-content-between align-items-md-center gap-3 mb-4">
+
         <div>
-            <h2>Gestión de usuarios</h2>
-            <p class="text-muted">Administrá los empleados de YaVa.</p>
+            <span class="users-eyebrow">ADMINISTRACIÓN / EQUIPO</span>
+            <h1 class="users-title">Gestión de usuarios</h1>
+            <p class="users-subtitle mb-0">
+                Administrá los empleados de YaVa.
+            </p>
         </div>
 
         <a asp-controller="Usuarios"
            asp-action="Create"
-           class="btn btn-primary">
+           class="btn btn-primary px-4">
             + Nuevo empleado
         </a>
     </div>
@@ -34,96 +42,102 @@
         </div>
     }
 
-    <table class="table table-striped align-middle">
-        <thead>
-            <tr>
-                <th>Usuario</th>
-                <th>Rol</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
+    <div class="card users-table-card">
 
-        <tbody>
-            @foreach (var usuario in Model)
-            {
-                <tr>
-                    <td>@usuario.NombreUsuario</td>
+        <div class="users-table-heading">
+            <div>
+                <h2 class="h5 mb-0">Empleados</h2>
+            </div>
+            <span class="users-count">
+                @Model.Count usuarios
+            </span>
+        </div>
 
-                    <td>@usuario.Rol</td>
-
-                    <td>
-                        @if (usuario.EstaDesactivado)
-                        {
-                            <span class="badge bg-danger">
-                                Desactivado
-                            </span>
-                        }
-                        else
-                        {
-                            <span class="badge bg-success">
-                                Activo
-                            </span>
-                        }
-                    </td>
-
-                    <td>
-                        @if (usuario.Rol != "Administrador")
-                        {
-                            <div class="d-flex gap-2 align-items-center">
-
-                                <a asp-controller="Usuarios"
-                                   asp-action="Edit"
-                                   asp-route-id="@usuario.Id"
-                                   class="btn btn-sm btn-outline-secondary">
-                                    Editar
-                                </a>
-
+        <div class="table-responsive">
+            <table class="table users-table mb-0">
+                <thead>
+                    <tr>
+                        <th>Usuario</th>
+                        <th>Rol</th>
+                        <th>Estado</th>
+                        <th class="text-end">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var usuario in Model)
+                    {
+                        <tr>
+                            <td>
+                                <span class="users-name">@usuario.NombreUsuario</span>
+                            </td>
+                            <td>
+                                <span class="users-role">@usuario.Rol</span>
+                            </td>
+                            <td>
                                 @if (usuario.EstaDesactivado)
                                 {
-                                    <form asp-controller="Usuarios"
-                                          asp-action="Reactivar"
-                                          method="post"
-                                          class="m-0">
-
-                                        @Html.AntiForgeryToken()
-
-                                        <input type="hidden"
-                                               name="id"
-                                               value="@usuario.Id" />
-
-                                        <button type="submit"
-                                                class="btn btn-sm btn-success">
-                                            Reactivar
-                                        </button>
-                                    </form>
+                                    <span class="users-status users-status-inactive">
+                                        <span class="users-status-dot"></span>
+                                        Desactivado
+                                    </span>
                                 }
                                 else
                                 {
-                                    <form asp-controller="Usuarios"
-                                          asp-action="Desactivar"
-                                          method="post"
-                                          class="m-0">
-
-                                        @Html.AntiForgeryToken()
-
-                                        <input type="hidden"
-                                               name="id"
-                                               value="@usuario.Id" />
-
-                                        <button type="submit"
-                                                class="btn btn-sm btn-outline-danger"
-                                                onclick="return confirm('¿Seguro que querés desactivar este empleado?')">
-                                            Desactivar
-                                        </button>
-                                    </form>
+                                    <span class="users-status users-status-active">
+                                        <span class="users-status-dot"></span>
+                                        Activo
+                                    </span>
                                 }
+                            </td>
+                            <td>
+                                @if (usuario.Rol != "Administrador")
+                                {
+                                    <div class="d-flex flex-wrap justify-content-end gap-2">
 
-                            </div>
-                        }
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+                                        <a asp-controller="Usuarios"
+                                           asp-action="Edit"
+                                           asp-route-id="@usuario.Id"
+                                           class="btn btn-sm users-edit-btn">
+                                            Editar
+                                        </a>
+
+                                        @if (usuario.EstaDesactivado)
+                                        {
+                                            <form asp-controller="Usuarios"
+                                                  asp-action="Reactivar"
+                                                  method="post"
+                                                  class="m-0">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="id" value="@usuario.Id" />
+                                                <button type="submit"
+                                                        class="btn btn-sm users-enable-btn">
+                                                    Reactivar
+                                                </button>
+                                            </form>
+                                        }
+                                        else
+                                        {
+                                            <form asp-controller="Usuarios"
+                                                  asp-action="Desactivar"
+                                                  method="post"
+                                                  class="m-0">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="id" value="@usuario.Id" />
+                                                <button type="submit"
+                                                        class="btn btn-sm users-disable-btn"
+                                                        onclick="return confirm('¿Seguro que querés desactivar este empleado?')">
+                                                    Desactivar
+                                                </button>
+                                            </form>
+                                        }
+                                    </div>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
