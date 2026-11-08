@@ -98,7 +98,20 @@
                
                         @if (User.Identity?.IsAuthenticated == true)
                         {
-                            <li class="nav-item ms-lg-2">
+                            var rol =
+                                User.IsInRole("Administrador") ? "ADMINISTRADOR" :
+                                User.IsInRole("Caja") ? "CAJA" :
+                                User.IsInRole("Cocina") ? "COCINA" :
+                                User.IsInRole("Mostrador") ? "MOSTRADOR" :
+                                "";
+
+                            if (!string.IsNullOrEmpty(rol))
+                            {
+                                <li class="nav-item ms-lg-2">
+                                    <span class="yava-user">@rol</span>
+                                </li>
+                            }
+                            <li class="nav-item">
                                 <form asp-controller="Cuenta"
                                       asp-action="Logout"
                                       method="post">

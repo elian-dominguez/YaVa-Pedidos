@@ -116,6 +116,16 @@ body.yava-app {
         color: white !important;
     }
 
+.yava-user {
+    display: inline-block;
+    padding: 10px 12px;
+    color: #c9b9a7;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    white-space: nowrap;
+}
+
 .yava-nav-button {
     background-color: var(--yava-terracotta);
     border: 1px solid var(--yava-terracotta);
